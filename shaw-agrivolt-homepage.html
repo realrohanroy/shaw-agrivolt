@@ -1,0 +1,3307 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shaw AgriVolt — Agricultural waste to industrial energy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;1,400&amp;family=Inter:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet">
+<style>
+/*
+ * SHAW AGRIVOLT — Design tokens
+ * Source: design-dna.md (locked)
+ *
+ * Tailwind utility equivalents (if using Tailwind):
+ * --color-bg             ≈ bg-white
+ * --color-surface        ≈ bg-gray-50
+ * --color-fg             ≈ text-gray-950
+ * --color-accent         ≈ bg-blue-900
+ * --space-xs             ≈ gap-1  (8px)
+ * --space-sm             ≈ gap-2  (16px)
+ * --space-md             ≈ gap-3  (24px)
+ * --space-lg             ≈ gap-5  (40px)
+ * --space-xl             ≈ gap-8  (64px)
+ * --space-2xl            ≈ gap-12 (96px)
+ * --space-3xl            ≈ gap-16 (128px)
+ * --radius-sm            ≈ rounded-sm  (2px)
+ * --radius-md            ≈ rounded     (4px)
+ * --radius-lg            ≈ rounded-lg  (8px)
+ * Nav: sticky top-0 z-100 h-[72px]
+ * Hero: h-screen min-h-[700px] flex items-end
+ * Hero text: col-[1/7] max-w-[600px]
+ * Grid: grid grid-cols-12 gap-6 max-w-[1280px] mx-auto px-20
+ * CTA: h-14 px-8 text-xs uppercase tracking-widest font-medium rounded-sm
+ */
+:root {
+  /* Colour system — OKLch */
+  --color-bg: oklch(0.99 0 0);
+  --color-surface: oklch(0.97 0.003 260);
+  --color-fg: oklch(0.13 0.015 260);
+  --color-muted: oklch(0.47 0.02 260);
+  --color-border: oklch(0.88 0.008 260);
+  --color-accent: oklch(0.35 0.04 260);
+  --color-green: oklch(0.45 0.12 160);
+  --color-success: oklch(0.55 0.14 150);
+  --color-warning: oklch(0.7 0.15 80);
+  --color-error: oklch(0.55 0.18 30);
+
+  /* Typography */
+  --font-display: "Inter Tight", "Neue Haas Grotesk", system-ui, -apple-system, sans-serif;
+  --font-body: "Inter", "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+
+  /* Spacing — 8px base */
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 40px;
+  --space-xl: 64px;
+  --space-2xl: 96px;
+  --space-3xl: 128px;
+
+  /* Border radius */
+  --radius-none: 0;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-full: 999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(10, 18, 46, 0.04);
+  --shadow-md: 0 4px 12px rgba(10, 18, 46, 0.06);
+  --shadow-lg: 0 8px 24px rgba(10, 18, 46, 0.08);
+  --shadow-xl: 0 16px 48px rgba(10, 18, 46, 0.1);
+
+  /* Motion — emphasized ease-out */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Grid */
+  --grid-columns: 12;
+  --grid-col-width: 80px;
+  --grid-gutter: 24px;
+  --content-max: 1280px;
+  --edge-padding: 80px;
+}
+
+/* Reset */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-fg);
+  background: var(--color-bg);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img, video { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; border: none; background: none; }
+ul { list-style: none; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+/*
+ * SKIP TO CONTENT
+ */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  padding: 8px 16px;
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  z-index: 1000;
+  transition: top 0.2s ease;
+}
+.skip-link:focus {
+  top: 16px;
+}
+
+/*
+ * Shared focus-visible treatment for text links (light backgrounds).
+ * Thematic CTA links and nav get an underline reveal rather than a box.
+ */
+.standards-cta-link:focus-visible,
+.products-cta-link:focus-visible {
+  border-bottom-color: var(--color-accent);
+  outline: none;
+}
+
+.nav-link:focus-visible {
+  color: #fff;
+}
+.nav-link:focus-visible::after {
+  transform: scaleX(1);
+}
+.nav.is-scrolled .nav-link:focus-visible {
+  color: var(--color-accent);
+}
+
+.nav-logo:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+.nav.is-scrolled .nav-logo:focus-visible {
+  outline-color: var(--color-accent);
+}
+
+.nav-hamburger:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+.nav.is-scrolled .nav-hamburger:focus-visible {
+  outline-color: var(--color-accent);
+}
+
+.btn-ghost:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.contact-options a:focus-visible {
+  border-bottom-color: #fff;
+  outline: none;
+}
+
+/*
+ * GRID CONTAINER
+ */
+.container {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--edge-padding);
+}
+
+/*
+ * NAVIGATION — sticky, transparent over hero, solid on scroll
+ */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  transition: background 0ms linear;
+}
+.nav.is-scrolled {
+  background: var(--color-bg);
+  box-shadow: 0 1px 0 var(--color-border);
+}
+.nav .container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Logo */
+.nav-logo {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  margin-right: auto;
+}
+.nav-logo img {
+  height: 32px;
+  width: auto;
+}
+.nav-logo-placeholder {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: #fff;
+  white-space: nowrap;
+}
+.nav.is-scrolled .nav-logo-placeholder {
+  color: var(--color-fg);
+}
+
+/* Nav links — desktop */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin: 0 auto;
+}
+.nav-link {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 4px 0;
+  position: relative;
+  transition: color 0.2s ease;
+  white-space: nowrap;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #fff;
+  transform: scaleX(0);
+  transition: transform 0.2s ease;
+}
+.nav-link:hover { color: #fff; }
+.nav-link:hover::after { transform: scaleX(1); }
+.nav.is-scrolled .nav-link {
+  color: var(--color-muted);
+}
+.nav.is-scrolled .nav-link:hover {
+  color: var(--color-accent);
+}
+.nav.is-scrolled .nav-link::after {
+  background: var(--color-accent);
+}
+
+.nav-link.is-active {
+  color: #fff;
+}
+.nav.is-scrolled .nav-link.is-active {
+  color: var(--color-accent);
+}
+.nav.is-scrolled .nav-link.is-active::after {
+  transform: scaleX(1);
+  background: var(--color-accent);
+}
+
+/* Nav CTA */
+.nav-cta {
+  flex: 0 0 auto;
+  margin-left: auto;
+}
+.nav-cta .btn-small {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.nav.is-scrolled .nav-cta .btn-small {
+  background: var(--color-accent);
+  color: #fff;
+  border-color: var(--color-accent);
+  backdrop-filter: none;
+}
+
+/* Hamburger (mobile) — hidden on desktop */
+.nav-hamburger {
+  display: none;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  color: #fff;
+}
+.nav.is-scrolled .nav-hamburger { color: var(--color-fg); }
+.hamburger-icon {
+  width: 24px;
+  height: 2px;
+  background: currentColor;
+  position: relative;
+  border-radius: 1px;
+  transition: background 0.2s ease;
+}
+.hamburger-icon::before,
+.hamburger-icon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: currentColor;
+  border-radius: 1px;
+}
+.hamburger-icon::before { top: -7px; }
+.hamburger-icon::after { bottom: -7px; }
+
+/*
+ * MOBILE DRAWER — full-screen, large typography per design-dna §20.
+ * Shown only ≤1023px. CTA pinned near bottom.
+ */
+.mobile-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+  padding: 96px var(--edge-padding) 48px;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition:
+    opacity 200ms var(--ease-out),
+    transform 200ms var(--ease-out),
+    visibility 0s linear 200ms;
+  overflow-y: auto;
+}
+
+.mobile-drawer.is-open {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 200ms var(--ease-out),
+    transform 200ms var(--ease-out);
+}
+
+.mobile-drawer-links {
+  list-style: none;
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.mobile-drawer-links a {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--color-fg);
+  padding: 8px 0;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.mobile-drawer-links a:hover,
+.mobile-drawer-links a:focus-visible {
+  color: var(--color-accent);
+}
+
+.mobile-drawer-cta {
+  margin-top: auto;
+  padding-top: var(--space-xl);
+}
+
+.mobile-drawer-cta .btn {
+  width: 100%;
+}
+
+.mobile-drawer-close {
+  position: absolute;
+  top: 16px;
+  right: var(--edge-padding);
+  width: 44px;
+  height: 44px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-fg);
+}
+
+@media (max-width: 1023px) {
+  .mobile-drawer-close { display: flex; }
+  .mobile-drawer-links a { font-size: 28px; }
+}
+
+/* Hide drawer entirely when desktop nav is back */
+@media (min-width: 1024px) {
+  .mobile-drawer { display: none; }
+}
+
+/* Nav legibility while the drawer is open over the transparent header */
+.nav.is-drawer-open {
+  background: var(--color-bg);
+}
+.nav.is-drawer-open .nav-logo-placeholder,
+.nav.is-drawer-open .nav-hamburger {
+  color: var(--color-fg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-drawer,
+  .mobile-drawer.is-open {
+    transition: none;
+  }
+}
+
+/*
+ * HERO SECTION
+ */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 700px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+/* Hero background — real industrial photograph or video */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+}
+.hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 18, 46, 0.30);
+  pointer-events: none;
+}
+
+/* Overlay — flat dark layer for text readability. Minimal, respects subject. */
+
+/* Hero content */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding-top: 80px;
+  padding-bottom: 0px;
+}
+.hero-content .container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--grid-gutter);
+}
+
+.hero-text {
+  grid-column: 1 / 7;
+  max-width: 600px;
+}
+
+/* SATAT badge */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: var(--space-md);
+  padding: 6px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+}
+.hero-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-green);
+  flex-shrink: 0;
+}
+
+/* Headline */
+.hero-headline {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5.5vw, 88px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.0;
+  color: #fff;
+  max-width: 12ch;
+}
+
+/* Supporting line */
+.hero-sub {
+  font-family: var(--font-body);
+  font-size: clamp(16px, 1.25vw, 20px);
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.75);
+  max-width: 520px;
+  margin-top: var(--space-lg);
+}
+
+/* CTA */
+.hero-cta {
+  margin-top: var(--space-xl);
+}
+
+/*
+ * BUTTON SYSTEM
+ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: var(--radius-sm);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.btn-large {
+  height: 60px;
+  padding: 0 40px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+}
+
+.btn-small {
+  height: 36px;
+  padding: 0 20px;
+  font-size: 11px;
+}
+
+.btn-primary {
+  background: var(--color-accent);
+  color: #fff;
+  border: 1px solid var(--color-accent);
+}
+.btn-primary:hover {
+  background: oklch(0.25 0.06 260);
+  border-color: oklch(0.25 0.06 260);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(10, 18, 46, 0.2);
+}
+.btn-primary:hover svg {
+  transform: translateX(3px);
+}
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+.btn-primary svg {
+  transition: transform 0.2s ease;
+}
+.btn-primary:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/*
+ * HERO ANIMATIONS
+ */
+.hero-animate {
+  opacity: 0;
+  transform: translateY(24px) scale(0.98);
+  animation: heroFadeUp 800ms var(--ease-out) forwards;
+}
+.hero-animate--badge { animation-delay: 0ms; }
+.hero-animate--headline { animation-delay: 150ms; }
+.hero-animate--sub { animation-delay: 300ms; }
+.hero-animate--cta { animation-delay: 450ms; }
+
+@keyframes heroFadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .hero-animate {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+  .hero-video { animation: none; }
+}
+
+/*
+ * RESPONSIVE
+ */
+@media (max-width: 1023px) {
+  :root { --edge-padding: 32px; }
+
+  .nav-links { display: none; }
+  .nav-cta { display: none; }
+  .nav-hamburger { display: flex; }
+
+  .hero { min-height: 600px; }
+  .hero-content { padding-top: 64px; padding-bottom: 0px; }
+  .hero-text { grid-column: 1 / 9; max-width: 600px; }
+}
+
+@media (max-width: 767px) {
+  :root { --edge-padding: 20px; }
+
+  .nav { height: 56px; }
+
+  .hero { min-height: 100svh; align-items: center; }
+  .hero-content { padding-top: 48px; padding-bottom: 0px; }
+  .hero-text { grid-column: 1 / -1; max-width: 100%; }
+
+  .hero-headline {
+    font-size: clamp(36px, 10vw, 48px);
+    max-width: 100%;
+  }
+  .hero-sub { max-width: 100%; }
+
+  .btn-large {
+    width: 100%;
+    height: 56px;
+  }
+
+  .hero-badge { font-size: 10px; padding: 4px 12px; }
+
+  .nav-logo-placeholder { font-size: 18px; }
+}
+
+@media (max-width: 359px) {
+  .hero-headline { font-size: 32px; }
+}
+
+/*
+ * SECTION 2 — THE SHIFT (Industrial Context)
+ *
+ * Architectural grid layout (Concept 1: four quadrants divided by
+ * hairline rules) + oversized statistics (Concept 2: massive numbers
+ * as the visual anchor). Numbers are the design — the right half is
+ * dominated by 20%, ₹45–55, 0.3–0.5% in accent. The left half
+ * provides context (demoted headline) and data (bar chart).
+ * Single row split: chart sits below the headline on the left; source
+ * sits below the stats on the right. Bottom padding reduced — the
+ * section doesn't need to fill the viewport.
+ * Transition from Hero: border-top + reduced top padding.
+ */
+.section-shift {
+  background: var(--color-bg);
+  padding: var(--space-xl) 0 var(--space-2xl);
+  border-top: 1px solid rgba(226, 226, 234, 0.3);
+}
+
+.section-shift .container {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--edge-padding);
+}
+
+/* Left / right split — chart moves up beside the headline */
+.shift-grid {
+  display: grid;
+  grid-template-columns: 6fr 1px 5fr;
+  grid-template-rows: auto;
+}
+
+.shift-rule-vert {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: stretch;
+  background: var(--color-border);
+}
+
+/* Left column — overline + headline + chart stacked */
+.shift-context {
+  grid-column: 1;
+  grid-row: 1;
+  padding: var(--space-xl) var(--space-xl);
+  display: flex;
+  flex-direction: column;
+}
+
+.shift-overline {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: var(--space-md);
+}
+
+.shift-headline {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 2.6vw, 34px);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  color: var(--color-fg);
+  max-width: 440px;
+  margin-bottom: var(--space-lg);
+}
+
+.shift-headline em {
+  font-style: normal;
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+/* Right column — massive statistics + source stacked */
+.shift-stats {
+  grid-column: 3;
+  grid-row: 1;
+  padding: var(--space-xl) 0 0 var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.shift-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.shift-stat-number {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 4.5vw, 72px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--color-accent);
+}
+
+.shift-stat-desc {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-muted);
+  max-width: 260px;
+}
+
+/* Chart — sits below the headline in the left column */
+.shift-chart-wrap {
+  margin-top: var(--space-lg);
+}
+
+.shift-chart {
+  --max: 500;
+}
+
+.shift-chart-label {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: var(--space-sm);
+}
+
+.shift-chart-bar-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.shift-chart-bar-row {
+  display: grid;
+  grid-template-columns: 100px 1fr 48px;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.shift-chart-bar-label {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-fg);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.shift-chart-bar-track {
+  height: 28px;
+  background: var(--color-border);
+  position: relative;
+  overflow: hidden;
+}
+
+.shift-chart-bar-fill {
+  height: 100%;
+  background: var(--color-accent);
+  width: calc(var(--v) / var(--max) * 100%);
+}
+
+.shift-chart-bar-value {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-accent);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.shift-chart-annotation {
+  margin-top: var(--space-xs);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--color-muted);
+  line-height: 1.4;
+}
+
+/* Source — sits below the last stat in the right column */
+.shift-source-wrap {
+  margin-top: var(--space-lg);
+}
+
+.shift-source {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--color-muted);
+  line-height: 1.5;
+}
+
+/*
+ * Motion — fade up on scroll
+ * Not applied to individual stats (the right quadrant animates as one block)
+ */
+.shift-animate {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 600ms var(--ease-out),
+    transform 600ms var(--ease-out);
+}
+
+.shift-animate.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.shift-animate--overline { transition-delay: 0ms; }
+.shift-animate--headline { transition-delay: 100ms; }
+.shift-animate--stats { transition-delay: 200ms; }
+.shift-animate--chart { transition-delay: 300ms; }
+.shift-animate--source { transition-delay: 400ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .shift-animate {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/*
+ * RESPONSIVE — Section 2
+ * Tablet: collapse to single-column stack, rules removed/reduced.
+ * Mobile: tighter spacing, smaller numbers, stacked chart bars.
+ */
+@media (max-width: 1023px) {
+  .section-shift {
+    padding: var(--space-lg) 0 var(--space-2xl);
+  }
+  .shift-grid {
+    grid-template-columns: 1fr;
+  }
+  .shift-rule-vert { display: none; }
+  .shift-context {
+    padding: 0 0 var(--space-md);
+  }
+  .shift-stats {
+    padding: var(--space-md) 0 0;
+    gap: var(--space-md);
+  }
+  .shift-chart-wrap {
+    margin-top: var(--space-md);
+  }
+  .shift-source-wrap {
+    margin-top: var(--space-md);
+  }
+  .shift-stat-number {
+    font-size: clamp(40px, 8vw, 56px);
+  }
+  .shift-stat-desc {
+    max-width: 100%;
+  }
+  .shift-headline {
+    max-width: 100%;
+  }
+  .shift-chart-bar-row {
+    grid-template-columns: 80px 1fr 40px;
+    gap: 8px;
+  }
+  .shift-chart-bar-label {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 767px) {
+  .section-shift {
+    padding: var(--space-md) 0 var(--space-xl);
+  }
+  .shift-stat-number {
+    font-size: 36px;
+  }
+  .shift-stat-desc {
+    font-size: 13px;
+  }
+  .shift-headline {
+    font-size: 22px;
+  }
+  .shift-chart-bar-row {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+  .shift-chart-bar-label {
+    text-align: left;
+    font-size: 12px;
+  }
+  .shift-chart-bar-value {
+    text-align: left;
+    font-size: 12px;
+  }
+  .shift-chart-bar-track {
+    height: 24px;
+  }
+}
+/*
+ * SECTION 3 — PROCESS (One feedstock, two outputs)
+ *
+ * Per wireframe §3 / story §3: four equal step cards, numbers (01–04)
+ * as markers — no icons, no illustrations. Each card carries a real
+ * photograph (art-direction §4 P1 assets), a one-line description and
+ * a spec indicator. A thin navy connector line joins the steps on
+ * desktop; the subtle structural grid keeps the engineering tone.
+ * Responsive: 4-col row → 2×2 grid (tablet) → single column (mobile).
+ */
+.section-process {
+  background: var(--color-surface);
+  padding: var(--space-3xl) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.section-process::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(90deg, var(--color-border) 1px, transparent 1px),
+    linear-gradient(0deg, var(--color-border) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+.section-process .container {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--edge-padding);
+  position: relative;
+  z-index: 1;
+}
+
+.process-heading {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.process-overline {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: var(--space-md);
+}
+
+.process-headline {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--color-fg);
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* Step grid — four equal cards */
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+  position: relative;
+}
+
+/* Connector line — thin navy hairline running behind the number markers */
+.process-steps::before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--color-accent);
+  opacity: 0.35;
+  z-index: 0;
+}
+
+.process-step {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 300ms var(--ease-out), box-shadow 300ms var(--ease-out);
+  position: relative;
+  z-index: 1;
+}
+
+.process-step:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-md);
+}
+
+/* Number marker — body face, 500 weight, muted, per wireframe §3 */
+.process-step-number {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--color-muted);
+  padding: var(--space-md) var(--space-md) 0;
+}
+
+.process-step-media {
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background: var(--color-border);
+  margin: var(--space-sm) var(--space-md) 0;
+}
+
+.process-step-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.process-step-body {
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.process-step-name {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--color-fg);
+  line-height: 1.2;
+  margin-bottom: var(--space-xs);
+}
+
+.process-step-desc {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--color-muted);
+}
+
+/* Spec indicator — small, mono-adjacent, muted */
+.process-step-spec {
+  margin-top: auto;
+  padding-top: var(--space-md);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+/* Motion */
+.process-animate {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 600ms var(--ease-out),
+    transform 600ms var(--ease-out);
+}
+
+.process-animate.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.process-animate--overline { transition-delay: 0ms; }
+.process-animate--headline { transition-delay: 100ms; }
+.process-animate--card-1 { transition-delay: 250ms; }
+.process-animate--card-2 { transition-delay: 400ms; }
+.process-animate--card-3 { transition-delay: 550ms; }
+.process-animate--card-4 { transition-delay: 700ms; }
+.process-animate--cta { transition-delay: 850ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .process-animate { opacity: 1; transform: none; transition: none; }
+}
+
+/* Tablet — 2×2 grid, connector hidden */
+@media (max-width: 1023px) {
+  .section-process { padding: var(--space-2xl) 0; }
+  .process-steps {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg) var(--space-md);
+  }
+  .process-steps::before { display: none; }
+  .process-headline { max-width: 100%; }
+}
+
+/* Mobile — single column */
+@media (max-width: 767px) {
+  .section-process { padding: var(--space-xl) 0; }
+  .process-steps {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+  .process-step-name { font-size: 18px; }
+}
+
+/*
+ * SECTION 4 — SCALE & METRICS (In operation)
+ *
+ * White background, no heading — just 4 KPI columns with numbers that
+ * count up on scroll. Each KPI has a 2px navy top border line that
+ * animates from 0→40px width on entry. Number is display face,
+ * label is uppercase muted, context is tertiary.
+ */
+.section-metrics {
+  background: var(--color-bg);
+  padding: var(--space-3xl) 0;
+}
+
+.section-metrics .container {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--edge-padding);
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+}
+
+/* Content of the KPI block — typographic treatment only per wireframe §4 */
+.metric {
+  text-align: left;
+  padding-top: var(--space-md);
+}
+
+/* 2px navy top line, 40px wide — the KPI anchor (animates 0→40px) */
+.metric-line {
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: var(--color-accent);
+  margin-bottom: var(--space-md);
+  transition: width 600ms var(--ease-out);
+}
+
+.metric-number-wrap {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--color-fg);
+  margin-bottom: var(--space-sm);
+}
+
+.metric-unit {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.5vw, 32px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--color-fg);
+}
+
+.metric-label {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: 8px;
+}
+
+.metric-context {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-muted);
+}
+
+/* Motion — fade up; line animates width; label+context fade after count */
+.metric {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 600ms var(--ease-out),
+    transform 600ms var(--ease-out);
+}
+
+.metric.is-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.metric.is-active .metric-line {
+  width: 40px;
+}
+
+.metric .metric-line {
+  width: 0;
+}
+
+.metric .metric-label,
+.metric .metric-context {
+  opacity: 0;
+  transition: opacity 600ms var(--ease-out);
+}
+
+.metric.is-settled .metric-label,
+.metric.is-settled .metric-context {
+  opacity: 1;
+}
+
+.metric.is-settled .metric-context {
+  transition-delay: 100ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .metric {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .metric .metric-line { width: 40px; transition: none; }
+  .metric .metric-label,
+  .metric .metric-context {
+    opacity: 1;
+    transition: none;
+  }
+}
+
+/* Tablet — 2×2 grid */
+@media (max-width: 1023px) {
+  .section-metrics {
+    padding: var(--space-2xl) 0;
+  }
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg) var(--space-md);
+  }
+}
+
+/* Mobile — single column */
+@media (max-width: 767px) {
+  .section-metrics {
+    padding: var(--space-xl) 0;
+  }
+  .metrics-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+  .metric-number-wrap {
+    font-size: clamp(36px, 12vw, 48px);
+  }
+  .metric-unit {
+    font-size: clamp(16px, 6vw, 24px);
+  }
+}
+
+/*
+ * SECTION 5 — CERTIFICATIONS & TRUST (Standards)
+ *
+ * Off-white surface; centered heading block; 4-column badge grid
+ * of static white cards. Credentials, not branding — no hover effects.
+ * Fade-up 600ms with 100ms stagger on scroll entry.
+ */
+.section-standards {
+  background: var(--color-surface);
+  padding: var(--space-3xl) 0;
+}
+
+.standards-heading {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto var(--space-2xl);
+}
+
+.standards-overline {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: var(--space-sm);
+}
+
+.standards-headline {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--color-fg);
+}
+
+.standards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+}
+
+.standards-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg) var(--space-md);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.standards-seal {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: var(--color-accent);
+  flex: none;
+}
+
+.standards-seal svg {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.standards-name {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-fg);
+  line-height: 1.3;
+}
+
+.standards-desc {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-muted);
+  max-width: 230px;
+}
+
+.standards-reg {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-muted);
+  opacity: 0.85;
+  margin-top: auto;
+  padding-top: var(--space-sm);
+}
+
+.standards-cta {
+  text-align: center;
+  margin-top: var(--space-2xl);
+}
+
+.standards-cta-link {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-accent);
+  border-bottom: 1px solid transparent;
+  transition: border-color 200ms var(--ease-out);
+}
+
+.standards-cta-link:hover {
+  border-bottom-color: var(--color-accent);
+}
+
+/* Motion — fade-up, 600ms, 100ms stagger */
+.standards-animate {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out);
+}
+
+.standards-animate.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.standards-animate--heading { transition-delay: 0ms; }
+.standards-animate--card-1 { transition-delay: 100ms; }
+.standards-animate--card-2 { transition-delay: 200ms; }
+.standards-animate--card-3 { transition-delay: 300ms; }
+.standards-animate--card-4 { transition-delay: 400ms; }
+.standards-animate--cta { transition-delay: 500ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .standards-animate {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Tablet — 2×2 grid */
+@media (max-width: 1023px) {
+  .section-standards { padding: var(--space-2xl) 0; }
+  .standards-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-lg) var(--space-md); }
+}
+
+/* Mobile — single column */
+@media (max-width: 767px) {
+  .section-standards { padding: var(--space-xl) 0; }
+  .standards-grid { grid-template-columns: 1fr; gap: var(--space-md); }
+  .standards-heading { margin-bottom: var(--space-xl); }
+}
+
+/*
+ * SECTION 6 — PRODUCT PREVIEW
+ *
+ * White background; centered heading block; two spec-led product
+ * cards. Specs replace imagery — left-aligned dl, no icons.
+ * Cards fade up 600ms with 200ms stagger; hover: navy border + shadow.
+ */
+.section-products {
+  background: var(--color-bg);
+  padding: var(--space-3xl) 0;
+}
+
+.products-heading {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto var(--space-xl);
+}
+
+.products-overline {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: var(--space-sm);
+}
+
+.products-headline {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--color-fg);
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-md);
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.products-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg) var(--space-md);
+  display: flex;
+  flex-direction: column;
+  transition:
+    border-color 300ms var(--ease-out),
+    box-shadow 300ms var(--ease-out);
+}
+
+.products-card:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-md);
+}
+
+.products-card-heading {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--color-fg);
+  margin-bottom: var(--space-md);
+}
+
+.products-specs {
+  margin: 0 0 var(--space-lg);
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.products-spec {
+  display: flex;
+  gap: var(--space-xs);
+  align-items: baseline;
+}
+
+.products-spec dt {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-fg);
+}
+
+.products-spec dt::after {
+  content: '—';
+  margin: 0 8px;
+  color: var(--color-muted);
+}
+
+.products-spec dd {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-muted);
+}
+
+.products-cta {
+  margin-top: auto;
+}
+
+.products-cta-link {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-accent);
+  border-bottom: 1px solid transparent;
+  transition: border-color 200ms var(--ease-out);
+}
+
+.products-cta-link:hover {
+  border-bottom-color: var(--color-accent);
+}
+
+.products-footer {
+  text-align: center;
+  margin-top: var(--space-xl);
+}
+
+/* Motion — fade up, 600ms, 200ms stagger */
+.product-animate {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out);
+}
+
+.product-animate.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.product-animate--heading { transition-delay: 0ms; }
+.product-animate--card-1 { transition-delay: 200ms; }
+.product-animate--card-2 { transition-delay: 400ms; }
+.product-animate--cta { transition-delay: 600ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .product-animate {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Tablet — stacked cards */
+@media (max-width: 1023px) {
+  .section-products { padding: var(--space-2xl) 0; }
+  .products-grid { grid-template-columns: 1fr; gap: var(--space-lg); }
+}
+
+/* Mobile — single column */
+@media (max-width: 767px) {
+  .section-products { padding: var(--space-xl) 0; }
+  .products-grid { gap: var(--space-md); }
+  .products-heading { margin-bottom: var(--space-lg); }
+}
+
+/*
+ * SECTION 7 — CASE STUDY / PROOF IN PRACTICE
+ *
+ * Off-white surface; 50/50 split: text left, image right (desktop),
+ * stacked with text above image (tablet/mobile). Honest placeholder
+ * copy until a real case study exists — same structural weight.
+ * Motion: content fade-up 600ms; image slides in from right 700ms.
+ */
+.section-case {
+  background: var(--color-surface);
+  padding: var(--space-3xl) 0;
+}
+
+.case-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-lg);
+  align-items: stretch;
+}
+
+.case-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-right: var(--space-lg);
+}
+
+.case-overline {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: var(--space-md);
+}
+
+.case-headline {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--color-fg);
+  margin-bottom: var(--space-sm);
+}
+
+.case-summary {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-muted);
+  max-width: 540px;
+  margin-bottom: var(--space-md);
+}
+
+.case-stat {
+  margin-bottom: var(--space-md);
+}
+
+.case-stat-value {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--color-fg);
+}
+
+.case-stat-label {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-top: var(--space-xs);
+}
+
+.case-cta {
+  margin-top: var(--space-sm);
+}
+
+.case-media {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  min-height: 420px;
+  background: var(--color-border);
+}
+
+.case-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Motion — content fade-up, image slide from right */
+.case-animate {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out);
+}
+
+.case-animate.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.case-animate--content { transition-delay: 0ms; }
+
+.case-animate--media {
+  transform: translateX(24px);
+  transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
+}
+
+.case-animate--media.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .case-animate,
+  .case-animate--media {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Tablet — stacked, text above image */
+@media (max-width: 1023px) {
+  .section-case { padding: var(--space-2xl) 0; }
+  .case-grid { grid-template-columns: 1fr; gap: var(--space-lg); }
+  .case-content { padding-right: 0; }
+  .case-media { min-height: 0; aspect-ratio: 16 / 9; }
+}
+
+/* Mobile — stacked, full-width CTA */
+@media (max-width: 767px) {
+  .section-case { padding: var(--space-xl) 0; }
+  .case-media { aspect-ratio: 16 / 9; }
+  .case-cta .btn-large {
+    width: 100%;
+  }
+}
+
+/*
+ * SECTION 8 — PARTNERSHIPS & ECOSYSTEM
+ *
+ * White background; centred heading block; two equal columns with
+ * a thin vertical divider between them. Minimal, text-driven, no
+ * imagery. Columns fade up 600ms with 150ms stagger.
+ */
+.section-partners {
+  background: var(--color-bg);
+  padding: var(--space-3xl) 0;
+}
+
+.partners-heading {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto var(--space-xl);
+}
+
+.partners-overline {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: var(--space-sm);
+}
+
+.partners-headline {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--color-fg);
+}
+
+.partners-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
+  gap: var(--space-lg);
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.partners-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: var(--space-md) 0;
+}
+
+.partners-subheading {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-fg);
+  margin-bottom: var(--space-md);
+}
+
+.partners-list {
+  list-style: none;
+  margin: 0 0 var(--space-md);
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.partners-list li {
+  display: flex;
+  gap: var(--space-xs);
+  align-items: baseline;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-muted);
+}
+
+.partners-list li::before {
+  content: '—';
+  flex: none;
+  color: var(--color-accent);
+}
+
+.partners-cta {
+  margin-top: auto;
+}
+
+/* Vertical divider */
+.partners-divider {
+  width: 1px;
+  background: var(--color-border);
+}
+
+/* Secondary/outline button for partner CTAs */
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 24px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  background: transparent;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-outline:hover {
+  background: var(--color-accent);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.btn-outline:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Motion — fade up, 600ms, 150ms stagger */
+.partner-animate {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out);
+}
+
+.partner-animate.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.partner-animate--heading { transition-delay: 0ms; }
+.partner-animate--col-1 { transition-delay: 150ms; }
+.partner-animate--col-2 { transition-delay: 300ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .partner-animate {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Tablet & mobile — stacked, divider removed */
+@media (max-width: 1023px) {
+  .section-partners { padding: var(--space-2xl) 0; }
+  .partners-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+    max-width: 560px;
+  }
+  .partners-divider {
+    width: 100%;
+    height: 1px;
+    margin: var(--space-lg) 0;
+  }
+  .partners-column { padding: 0; }
+}
+
+/* Mobile — tighter padding */
+@media (max-width: 767px) {
+  .section-partners { padding: var(--space-xl) 0; }
+  .partners-heading { margin-bottom: var(--space-lg); }
+}
+
+/*
+ * SECTION 9 — FINAL CTA / CONTACT
+ *
+ * Navy background (--color-accent), white text, centred content.
+ * White form card with 2-col field rows (desktop), stacked on mobile.
+ * Section fades up 600ms; fields get an accent focus ring.
+ */
+.section-contact {
+  background: var(--color-accent);
+  padding: var(--space-3xl) 0;
+}
+
+.contact-heading {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto var(--space-xl);
+}
+
+.contact-headline {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 3.4vw, 44px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: #fff;
+  margin-bottom: var(--space-md);
+}
+
+.contact-supporting {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Form card */
+.contact-form-card {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 24px 64px rgba(6, 12, 30, 0.25);
+  padding: var(--space-lg);
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.contact-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+.contact-field--full {
+  grid-column: 1 / -1;
+}
+
+.contact-label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: 8px;
+}
+
+.contact-input,
+.contact-select,
+.contact-textarea {
+  width: 100%;
+  height: 48px;
+  padding: 0 14px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-fg);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  appearance: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.contact-textarea {
+  height: 120px;
+  padding: 12px 14px;
+  resize: vertical;
+}
+
+.contact-input::placeholder {
+  color: var(--color-muted);
+  opacity: 0.8;
+}
+
+.contact-input:focus,
+.contact-select:focus,
+.contact-textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 1px var(--color-accent);
+}
+
+.contact-input[aria-invalid="true"],
+.contact-textarea[aria-invalid="true"] {
+  border-color: var(--color-error);
+}
+
+.contact-error {
+  grid-column: 1 / -1;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--color-error);
+  margin-top: -12px;
+}
+
+.contact-select {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%235C6575' stroke-width='1.5' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 38px;
+}
+
+.contact-submit {
+  grid-column: 1 / -1;
+  height: 56px;
+  padding: 0 32px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  width: 100%;
+  border-radius: var(--radius-sm);
+}
+
+/* Form feedback live region */
+.contact-feedback {
+  grid-column: 1 / -1;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-fg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  display: none;
+}
+
+.contact-feedback.is-visible {
+  display: block;
+}
+
+.contact-feedback.is-error {
+  color: var(--color-error);
+  border-color: var(--color-error);
+}
+
+.contact-feedback.is-success {
+  color: var(--color-success);
+  border-color: var(--color-success);
+}
+
+/* Contact options below the card */
+.contact-options {
+  text-align: center;
+  margin-top: var(--space-lg);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.contact-options a {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.contact-options a:hover {
+  color: #fff;
+  border-color: #fff;
+}
+
+.contact-options-separator {
+  margin: 0 10px;
+  opacity: 0.4;
+}
+
+.contact-address {
+  display: block;
+  margin-top: 8px;
+}
+
+/* Motion — section fades up 600ms */
+.contact-animate {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out);
+}
+
+.contact-animate.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-animate {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Tablet — form card narrows */
+@media (max-width: 1023px) {
+  .section-contact { padding: var(--space-2xl) 0; }
+}
+
+/* Mobile — single-column form, full-width card */
+@media (max-width: 767px) {
+  .section-contact { padding: var(--space-xl) 0; }
+  .contact-form-card { padding: var(--space-lg) 20px; }
+  .contact-form {
+    grid-template-columns: 1fr;
+  }
+  .contact-field {
+    grid-column: 1 / -1;
+  }
+}
+
+/*
+ * FOOTER
+ *
+ * Near-black navy background (oklch 0.13), 4-column link grid.
+ * Utility — deliberately no motion.
+ */
+.site-footer {
+  background: oklch(0.13 0.015 260);
+  padding: 80px 0 48px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-lg);
+  padding-bottom: var(--space-xl);
+}
+
+.footer-heading {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: var(--space-md);
+}
+
+.footer-links {
+  list-style: none;
+  margin: 0;
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.footer-links a {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: #fff;
+}
+
+.footer-links a:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* Contact column — non-link lines stay at 70% */
+.footer-contact-line {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Bottom bar */
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.footer-bottom-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.footer-satat {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: var(--radius-full);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+  white-space: nowrap;
+}
+
+.footer-satat-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-green);
+  flex-shrink: 0;
+}
+
+.footer-copyright {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.5);
+  white-space: nowrap;
+}
+
+/* Language switcher */
+.footer-lang {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.footer-lang a {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-lang a.is-active {
+  color: #fff;
+}
+
+.footer-lang a:not(.is-active) {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.footer-lang a:not(.is-active):hover {
+  color: #fff;
+}
+
+.footer-lang a:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* Tablet — 2×2 grid */
+@media (max-width: 1023px) {
+  .site-footer { padding: var(--space-2xl) 0 48px; }
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg) var(--space-2xl);
+  }
+}
+
+/* Mobile — single column stack */
+@media (max-width: 767px) {
+  .site-footer { padding: var(--space-xl) 0 40px; }
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-md);
+  }
+  .footer-bottom-left {
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Skip to content -->
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- Navigation -->
+<header class="nav" id="site-nav" role="banner">
+  <div class="container">
+    <a href="/" class="nav-logo" aria-label="Shaw AgriVolt home">
+      <span class="nav-logo-placeholder">Shaw AgriVolt</span>
+    </a>
+
+    <nav aria-label="Main navigation">
+      <ul class="nav-links" role="list">
+        <li><a href="#" class="nav-link is-active" aria-current="page">Home</a></li>
+        <li><a href="#" class="nav-link">About</a></li>
+        <li><a href="#" class="nav-link">Products</a></li>
+        <li><a href="#" class="nav-link">Sustainability</a></li>
+        <li><a href="#" class="nav-link">Resources</a></li>
+        <li><a href="#" class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-cta">
+      <a href="#" class="btn btn-small btn-ghost">Get a quote</a>
+    </div>
+
+    <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-drawer">
+      <span class="hamburger-icon"></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile drawer (≤1023px) -->
+<div class="mobile-drawer" id="mobile-drawer" aria-label="Mobile navigation" data-od-id="mobile-drawer">
+  <button class="mobile-drawer-close" aria-label="Close menu" data-od-id="mobile-drawer-close">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+  </button>
+
+  <nav aria-label="Mobile">
+    <ul class="mobile-drawer-links" role="list">
+      <li><a href="#" class="mobile-drawer-link">Home</a></li>
+      <li><a href="#" class="mobile-drawer-link">About</a></li>
+      <li><a href="#" class="mobile-drawer-link">Products</a></li>
+      <li><a href="#" class="mobile-drawer-link">Sustainability</a></li>
+      <li><a href="#" class="mobile-drawer-link">Resources</a></li>
+      <li><a href="#" class="mobile-drawer-link">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="mobile-drawer-cta">
+    <a href="#" class="btn btn-primary">Get a quote</a>
+  </div>
+</div>
+
+<main id="main-content">
+
+<!-- HERO SECTION -->
+<section class="hero" aria-label="Hero" data-od-id="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <img src="assets/hero-aerial-plant-01.jpg" alt="" style="filter: saturate(0.85) contrast(1.1);">
+  </div>
+
+  <div class="hero-content">
+    <div class="container">
+      <div class="hero-text">
+
+        <!-- SATAT badge -->
+        <div class="hero-badge hero-animate hero-animate--badge">
+          <span class="hero-badge-dot" aria-hidden="true"></span>
+          SATAT initiative
+        </div>
+
+        <!-- Headline — max 8 words -->
+        <h1 class="hero-headline hero-animate hero-animate--headline">
+          Agricultural waste to industrial energy
+        </h1>
+
+        <!-- Supporting line -->
+        <p class="hero-sub hero-animate hero-animate--sub">
+          Bio-CNG at 97% purity. Certified organic fertiliser.
+          One integrated process from feedstock to fuel.
+        </p>
+
+        <!-- CTA -->
+        <div class="hero-cta hero-animate hero-animate--cta">
+          <a href="#" class="btn btn-large btn-primary" style="gap: 8px; letter-spacing: 1.44px;">
+            Explore our infrastructure
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" style="margin-left:2px;">
+              <path d="M3 8h10m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2 — THE SHIFT (Industrial Context) -->
+<section class="section-shift" aria-label="The industrial context" data-od-id="section-shift">
+  <div class="container">
+    <div class="shift-grid">
+
+      <!-- Vertical hairline rule -->
+      <div class="shift-rule-vert" aria-hidden="true"></div>
+
+      <!-- Left column — context + chart -->
+      <div class="shift-context shift-animate shift-animate--overline">
+        <p class="shift-overline">The industrial case</p>
+        <h2 class="shift-headline shift-animate shift-animate--headline">
+          Agricultural waste can supply <em>2.5×</em> India’s annual natural gas demand
+        </h2>
+        <div class="shift-chart-wrap shift-animate shift-animate--chart">
+          <div class="shift-chart" role="figure" aria-labelledby="chart-title" aria-describedby="chart-desc" style="--max: 500">
+            <p class="shift-chart-label" id="chart-title">India’s gas demand vs. feedstock opportunity</p>
+            <div class="shift-chart-bar-group" role="list">
+              <div class="shift-chart-bar-row" role="listitem">
+                <span class="shift-chart-bar-label">Current demand</span>
+                <div class="shift-chart-bar-track">
+                  <div class="shift-chart-bar-fill" style="--v: 200;" role="presentation"></div>
+                </div>
+                <span class="shift-chart-bar-value">200&nbsp;MMT</span>
+              </div>
+              <div class="shift-chart-bar-row" role="listitem">
+                <span class="shift-chart-bar-label">Feedstock potential</span>
+                <div class="shift-chart-bar-track">
+                  <div class="shift-chart-bar-fill" style="--v: 500;" role="presentation"></div>
+                </div>
+                <span class="shift-chart-bar-value">500&nbsp;MMT</span>
+              </div>
+            </div>
+            <p class="shift-chart-annotation" id="chart-desc">
+              Agricultural waste can cover more than twice India’s current natural gas consumption
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column — statistics + source -->
+      <div class="shift-stats shift-animate shift-animate--stats">
+        <div class="shift-stat">
+          <span class="shift-stat-number">20%</span>
+          <p class="shift-stat-desc">CBG blending in CNG by 2028&nbsp;— a guaranteed demand of 8&nbsp;MMT annually.</p>
+        </div>
+        <div class="shift-stat">
+          <span class="shift-stat-number">₹45–55</span>
+          <p class="shift-stat-desc">Bio-CNG per kg vs. diesel at ₹90+/litre&nbsp;— a 40–50% fuel cost advantage.</p>
+        </div>
+        <div class="shift-stat">
+          <span class="shift-stat-number">0.3–0.5%</span>
+          <p class="shift-stat-desc">Indian agricultural soil organic carbon&nbsp;— organic fertiliser restores to the target 1.0%.</p>
+        </div>
+        <div class="shift-source-wrap shift-animate shift-animate--source">
+          <p class="shift-source">Sources: SATAT scheme (MoPNG), Indian Biogas Association, ICAR soil health data, 2024.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3 — PROCESS (One feedstock, two outputs) -->
+<section class="section-process" aria-label="Our process" data-od-id="section-process">
+  <div class="container">
+
+    <div class="process-heading">
+      <p class="process-overline process-animate process-animate--overline">Our process</p>
+      <h2 class="process-headline process-animate process-animate--headline">
+        Agricultural waste&nbsp;→ high-purity Bio-CNG&nbsp;+ certified organic fertiliser
+      </h2>
+    </div>
+
+    <div class="process-steps">
+
+      <article class="process-step process-animate process-animate--card-1" aria-labelledby="process-step-1" data-od-id="process-step-feedstock">
+        <span class="process-step-number" aria-hidden="true">01</span>
+        <div class="process-step-media">
+          <img src="assets/metric-feedstock-bales-01.jpg" alt="Bales of crop residue on a harvested field" loading="lazy" width="900" height="675">
+        </div>
+        <div class="process-step-body">
+          <h3 class="process-step-name" id="process-step-1">Feedstock</h3>
+          <p class="process-step-desc">Agricultural residue and organic waste procured under long-term supply agreements.</p>
+          <p class="process-step-spec">Procurement &amp; quality control</p>
+        </div>
+      </article>
+
+      <article class="process-step process-animate process-animate--card-2" aria-labelledby="process-step-2" data-od-id="process-step-digestion">
+        <span class="process-step-number" aria-hidden="true">02</span>
+        <div class="process-step-media">
+          <img src="assets/metric-facility-aerial-01.jpg" alt="Aerial view of an industrial plant with storage tanks and pipelines" loading="lazy" width="900" height="675">
+        </div>
+        <div class="process-step-body">
+          <h3 class="process-step-name" id="process-step-2">Digestion</h3>
+          <p class="process-step-desc">Anaerobic digestion converts feedstock into raw biogas in sealed reactors.</p>
+          <p class="process-step-spec">Controlled anaerobic process</p>
+        </div>
+      </article>
+
+      <article class="process-step process-animate process-animate--card-3" aria-labelledby="process-step-3" data-od-id="process-step-purification">
+        <span class="process-step-number" aria-hidden="true">03</span>
+        <div class="process-step-media">
+          <img src="assets/metric-purity-lab-01.jpg" alt="Laboratory flask with liquid for gas purity analysis" loading="lazy" width="900" height="675">
+        </div>
+        <div class="process-step-body">
+          <h3 class="process-step-name" id="process-step-3">Purification</h3>
+          <p class="process-step-desc">Biogas is upgraded and compressed to pipeline-grade Bio-CNG.</p>
+          <p class="process-step-spec">97%+ methane purity</p>
+        </div>
+      </article>
+
+      <article class="process-step process-animate process-animate--card-4" aria-labelledby="process-step-4" data-od-id="process-step-output">
+        <span class="process-step-number" aria-hidden="true">04</span>
+        <div class="process-step-media">
+          <img src="assets/metric-bio-cng-cylinders-01.jpg" alt="High-pressure Bio-CNG storage cylinders" loading="lazy" width="900" height="675">
+        </div>
+        <div class="process-step-body">
+          <h3 class="process-step-name" id="process-step-4">Output</h3>
+          <p class="process-step-desc">Dual output — clean transport fuel and certified organic fertiliser.</p>
+          <p class="process-step-spec">Bio-CNG &amp; fertiliser</p>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="process-cta process-animate process-animate--cta" style="text-align:center;margin-top:var(--space-xl)">
+      <a href="#" class="process-cta-link" style="font-family:var(--font-display);font-size:16px;font-weight:500;color:var(--color-accent);text-decoration:none;border-bottom:1px solid transparent;transition:border-color 300ms var(--ease-out)">
+        Explore our technology
+        <span class="process-cta-arrow" style="display:inline-block;transition:transform 300ms var(--ease-out)" aria-hidden="true">&nbsp;→</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- SECTION 4 — SCALE & METRICS (In operation) -->
+<section class="section-metrics" aria-label="In operation" data-od-id="section-metrics">
+  <div class="container">
+    <div class="metrics-grid">
+
+      <div class="metric" data-od-id="metric-tonnes">
+        <span class="metric-line" aria-hidden="true"></span>
+        <p class="metric-number-wrap">
+          <span class="metric-number" data-target="250000">0</span>
+        </p>
+        <p class="metric-label">Tonnes/year processed</p>
+        <p class="metric-context">Agricultural waste diverted from open burning</p>
+      </div>
+
+      <div class="metric" data-od-id="metric-bio-cng">
+        <span class="metric-line" aria-hidden="true"></span>
+        <p class="metric-number-wrap">
+          <span class="metric-number" data-target="50">0</span>
+          <span class="metric-unit">&nbsp;tonnes/day</span>
+        </p>
+        <p class="metric-label">Bio-CNG production</p>
+        <p class="metric-context">Total output capacity at full operation</p>
+      </div>
+
+      <div class="metric" data-od-id="metric-purity">
+        <span class="metric-line" aria-hidden="true"></span>
+        <p class="metric-number-wrap">
+          <span class="metric-number" data-target="97">0</span>
+          <span class="metric-unit">%</span>
+        </p>
+        <p class="metric-label">Methane purity</p>
+        <p class="metric-context">Pipeline-grade specification consistently achieved</p>
+      </div>
+
+      <div class="metric" data-od-id="metric-plants">
+        <span class="metric-line" aria-hidden="true"></span>
+        <p class="metric-number-wrap">
+          <span class="metric-number" data-target="3">0</span>
+          <span class="metric-unit">&nbsp;plants</span>
+        </p>
+        <p class="metric-label">Operational facilities</p>
+        <p class="metric-context">Expanding across the supply network</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5 — CERTIFICATIONS & TRUST (Standards) -->
+<section class="section-standards" aria-label="Certifications and compliance" data-od-id="section-standards">
+  <div class="container">
+    <div class="standards-heading">
+      <p class="standards-overline standards-animate standards-animate--heading">Certifications &amp; compliance</p>
+      <h2 class="standards-headline standards-animate standards-animate--heading">
+        Built and operated to the standards our buyers and regulators expect.
+      </h2>
+    </div>
+
+    <div class="standards-grid">
+
+      <div class="standards-card standards-animate standards-animate--card-1" data-od-id="standards-card-satat">
+        <span class="standards-seal" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.5"></circle>
+            <path d="M12 8.4 L12.94 10.71 L15.42 10.89 L13.52 12.49 L14.12 14.91 L12 13.6 L9.88 14.91 L10.48 12.49 L8.58 10.89 L11.06 10.71 Z" fill="currentColor"></path>
+          </svg>
+        </span>
+        <p class="standards-name">SATAT Initiative</p>
+        <p class="standards-desc">Aligned with the Govt. of India's Sustainable Alternative Towards Affordable Transportation scheme.</p>
+        <p class="standards-reg">Reg. no. — available on request</p>
+      </div>
+
+      <div class="standards-card standards-animate standards-animate--card-2" data-od-id="standards-card-iso9001">
+        <span class="standards-seal" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.5"></circle>
+            <circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.5"></circle>
+            <path d="M9.8 12.3 L11.4 13.9 L14.5 10.3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </span>
+        <p class="standards-name">ISO 9001:2015</p>
+        <p class="standards-desc">Certified quality management across plant operations and process control.</p>
+        <p class="standards-reg">Reg. no. — available on request</p>
+      </div>
+
+      <div class="standards-card standards-animate standards-animate--card-3" data-od-id="standards-card-iso14001">
+        <span class="standards-seal" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.5"></circle>
+            <ellipse cx="12" cy="12" rx="3.5" ry="8.5" fill="none" stroke="currentColor" stroke-width="1.5"></ellipse>
+            <ellipse cx="12" cy="12" rx="8.5" ry="3.5" fill="none" stroke="currentColor" stroke-width="1.5"></ellipse>
+          </svg>
+        </span>
+        <p class="standards-name">ISO 14001:2015</p>
+        <p class="standards-desc">Certified environmental management for sustainable, compliant operations.</p>
+        <p class="standards-reg">Reg. no. — available on request</p>
+      </div>
+
+      <div class="standards-card standards-animate standards-animate--card-4" data-od-id="standards-card-fco">
+        <span class="standards-seal" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 3.8 L18.8 7.15 V16.85 L12 20.2 L5.2 16.85 V7.15 Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"></path>
+            <path d="M12 8.2 C 13 9.7 14 10.8 14 12.4 A 2 2 0 1 1 10 12.4 C 10 10.8 11 9.7 12 8.2 Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </span>
+        <p class="standards-name">FCO Compliance</p>
+        <p class="standards-desc">Fertiliser (Control) Order compliance for certified organic fertiliser output.</p>
+        <p class="standards-reg">Reg. no. — available on request</p>
+      </div>
+
+    </div>
+
+    <p class="standards-cta standards-animate standards-animate--cta">
+      <a href="#compliance-docs" class="standards-cta-link" data-od-id="link-compliance-docs">
+        Download our compliance documentation
+        <span style="display:inline-block;transition:transform 300ms var(--ease-out)" aria-hidden="true">&nbsp;→</span>
+      </a>
+    </p>
+  </div>
+</section>
+
+<!-- SECTION 6 — PRODUCT PREVIEW -->
+<section class="section-products" aria-label="Products" data-od-id="section-products">
+  <div class="container">
+    <div class="products-heading">
+      <p class="products-overline product-animate product-animate--heading">Products</p>
+      <h2 class="products-headline product-animate product-animate--heading">
+        Industrial-grade outputs, certified to spec
+      </h2>
+    </div>
+
+    <div class="products-grid">
+
+      <article class="products-card product-animate product-animate--card-1" aria-labelledby="product-bio-cng-heading" data-od-id="product-bio-cng">
+        <h3 class="products-card-heading" id="product-bio-cng-heading">Bio-CNG</h3>
+        <dl class="products-specs">
+          <div class="products-spec">
+            <dt>Methane purity</dt>
+            <dd>97%+</dd>
+          </div>
+          <div class="products-spec">
+            <dt>Calorific value</dt>
+            <dd>Pipeline-grade specification</dd>
+          </div>
+          <div class="products-spec">
+            <dt>Delivery format</dt>
+            <dd>Cascade &amp; pipeline</dd>
+          </div>
+          <div class="products-spec">
+            <dt>Application</dt>
+            <dd>Industrial &amp; transport fuel</dd>
+          </div>
+        </dl>
+        <div class="products-cta">
+          <a href="#bio-cng-specs" class="products-cta-link" data-od-id="link-bio-cng-specs">
+            View Bio-CNG specs
+            <span style="display:inline-block;transition:transform 300ms var(--ease-out)" aria-hidden="true">&nbsp;→</span>
+          </a>
+        </div>
+      </article>
+
+      <article class="products-card product-animate product-animate--card-2" aria-labelledby="product-fertiliser-heading" data-od-id="product-fertiliser">
+        <h3 class="products-card-heading" id="product-fertiliser-heading">Organic fertiliser</h3>
+        <dl class="products-specs">
+          <div class="products-spec">
+            <dt>NPK ratio</dt>
+            <dd>Balanced macro-nutrient profile</dd>
+          </div>
+          <div class="products-spec">
+            <dt>Form</dt>
+            <dd>Granular / pelleted</dd>
+          </div>
+          <div class="products-spec">
+            <dt>Packaging</dt>
+            <dd>Bag &amp; bulk</dd>
+          </div>
+          <div class="products-spec">
+            <dt>Certification</dt>
+            <dd>FCO compliant</dd>
+          </div>
+        </dl>
+        <div class="products-cta">
+          <a href="#fertiliser-specs" class="products-cta-link" data-od-id="link-fertiliser-specs">
+            View fertiliser specs
+            <span style="display:inline-block;transition:transform 300ms var(--ease-out)" aria-hidden="true">&nbsp;→</span>
+          </a>
+        </div>
+      </article>
+
+    </div>
+
+    <p class="products-footer product-animate product-animate--cta">
+      <a href="#request-quote" class="products-cta-link" data-od-id="link-request-quote">
+        Request a quote
+        <span style="display:inline-block;transition:transform 300ms var(--ease-out)" aria-hidden="true">&nbsp;→</span>
+      </a>
+    </p>
+  </div>
+</section>
+
+<!-- SECTION 7 — CASE STUDY / PROOF IN PRACTICE -->
+<section class="section-case" aria-label="Case study" id="section-case-study" data-od-id="section-case-study">
+  <div class="container">
+    <div class="case-grid">
+
+      <div class="case-content case-animate case-animate--content" data-od-id="case-study-content">
+        <p class="case-overline">Case study</p>
+        <h2 class="case-headline">First case study in preparation</h2>
+        <p class="case-summary">
+          We are documenting a full deployment end to end — partner, volumes, and measured results.
+          This space will carry the first verified Shaw AgriVolt case study once the engagement is published.
+        </p>
+        <p class="case-stat">
+          <span class="case-stat-value">To be published</span>
+          <span class="case-stat-label">Impact metrics — CO₂ displaced, vehicles fuelled, tonnes delivered</span>
+        </p>
+        <div class="case-cta">
+          <a href="#contact" class="btn btn-large btn-primary" data-od-id="link-start-similar-project">
+            Start a similar project
+          </a>
+        </div>
+      </div>
+
+      <div class="case-media case-animate case-animate--media" data-od-id="case-study-media">
+        <img src="assets/case-study-biogas-digester-01.jpg" alt="Biogas storage spheres and digesters at a processing plant" loading="lazy" width="1000" height="750">
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 8 — PARTNERSHIPS & ECOSYSTEM -->
+<section class="section-partners" aria-label="Partnerships" data-od-id="section-partnerships">
+  <div class="container">
+    <div class="partners-heading partner-animate partner-animate--heading" data-od-id="partners-heading">
+      <p class="partners-overline">Partnerships</p>
+      <h2 class="partners-headline">Supply. Distribute. Grow with us.</h2>
+    </div>
+
+    <div class="partners-grid">
+
+      <div class="partners-column partner-animate partner-animate--col-1" role="group" aria-labelledby="partner-suppliers-heading" data-od-id="partners-suppliers">
+        <h3 class="partners-subheading" id="partner-suppliers-heading">For biomass suppliers</h3>
+        <ul class="partners-list">
+          <li>Long-term procurement of agricultural residue and dedicated feedstock</li>
+          <li>Quality parameters, grading, and volume planning agreed upfront</li>
+          <li>Predictable pricing model built around transparent, index-linked rates</li>
+        </ul>
+        <div class="partners-cta">
+          <a href="#contact" class="btn-outline" data-od-id="link-become-supplier">Become a supplier →</a>
+        </div>
+      </div>
+
+      <div class="partners-divider" role="separator" aria-hidden="true"></div>
+
+      <div class="partners-column partner-animate partner-animate--col-2" role="group" aria-labelledby="partner-dealers-heading" data-od-id="partners-dealers">
+        <h3 class="partners-subheading" id="partner-dealers-heading">For dealers &amp; distributors</h3>
+        <ul class="partners-list">
+          <li>Authorised territories with protected, exclusive distribution rights</li>
+          <li>Reliable product availability for Bio-CNG and organic fertiliser</li>
+          <li>Dedicated support, training, and marketing backing for partners</li>
+        </ul>
+        <div class="partners-cta">
+          <a href="#contact" class="btn-outline" data-od-id="link-apply-dealer">Apply as a dealer →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 9 — FINAL CTA / CONTACT -->
+<section class="section-contact" aria-label="Contact us" id="contact" data-od-id="section-contact">
+  <div class="container">
+    <div class="contact-heading contact-animate" data-od-id="contact-heading">
+      <h2 class="contact-headline">Ready to discuss your fuel or fertiliser requirements?</h2>
+      <p class="contact-supporting">Send us a message or reach out directly.</p>
+    </div>
+
+    <div class="contact-form-card contact-animate" data-od-id="contact-form-card">
+      <form class="contact-form" action="#" method="post" aria-label="Contact inquiry form" novalidate="" data-od-id="contact-form">
+        <div class="contact-field">
+          <label class="contact-label" for="contact-name">Name</label>
+          <input class="contact-input" type="text" id="contact-name" name="name" autocomplete="name" placeholder="Your full name" aria-required="true" required="">
+          <p class="contact-error" id="contact-name-error" hidden=""></p>
+        </div>
+
+        <div class="contact-field">
+          <label class="contact-label" for="contact-company">Company</label>
+          <input class="contact-input" type="text" id="contact-company" name="company" autocomplete="organization" placeholder="Company name">
+          <p class="contact-error" id="contact-company-error" hidden=""></p>
+        </div>
+
+        <div class="contact-field">
+          <label class="contact-label" for="contact-email">Email</label>
+          <input class="contact-input" type="email" id="contact-email" name="email" autocomplete="email" placeholder="you@company.com" aria-required="true" required="">
+          <p class="contact-error" id="contact-email-error" hidden=""></p>
+        </div>
+
+        <div class="contact-field">
+          <label class="contact-label" for="contact-phone">Phone</label>
+          <input class="contact-input" type="tel" id="contact-phone" name="phone" autocomplete="tel" placeholder="+91" aria-required="true" required="">
+          <p class="contact-error" id="contact-phone-error" hidden=""></p>
+        </div>
+
+        <div class="contact-field contact-field--full">
+          <label class="contact-label" for="contact-interest">Interest</label>
+          <select class="contact-select" id="contact-interest" name="interest">
+            <option value="bio-cng">Bio-CNG</option>
+            <option value="fertiliser">Organic fertiliser</option>
+            <option value="partnership">Partnership</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="contact-field contact-field--full">
+          <label class="contact-label" for="contact-message">Message</label>
+          <textarea class="contact-textarea" id="contact-message" name="message" rows="4" placeholder="Tell us about your requirements"></textarea>
+        </div>
+
+        <p class="contact-feedback" id="contact-feedback" aria-live="polite"></p>
+
+        <button type="submit" class="btn btn-primary contact-submit" data-od-id="link-send-inquiry">Send inquiry</button>
+      </form>
+    </div>
+
+    <div class="contact-options contact-animate" data-od-id="contact-options">
+      <a href="tel:+910000000000">+91 XXXXX XXXXXX</a>
+      <span class="contact-options-separator" aria-hidden="true">|</span>
+      <a href="mailto:info@shawagrivolt.in">info@shawagrivolt.in</a>
+      <span class="contact-address">Plant location to be announced</span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer" aria-label="Site footer" data-od-id="site-footer">
+  <div class="container">
+
+    <div class="footer-grid">
+
+      <div class="footer-column" data-od-id="footer-company">
+        <h4 class="footer-heading">Company</h4>
+        <ul class="footer-links" role="list">
+          <li><a href="#">About</a></li>
+          <li><a href="#">Infrastructure</a></li>
+          <li><a href="#">Leadership</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column" data-od-id="footer-products">
+        <h4 class="footer-heading">Products</h4>
+        <ul class="footer-links" role="list">
+          <li><a href="#bio-cng-specs">Bio-CNG</a></li>
+          <li><a href="#fertiliser-specs">Organic fertiliser</a></li>
+          <li><a href="#">Additional products <span aria-hidden="true">(future)</span></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column" data-od-id="footer-resources">
+        <h4 class="footer-heading">Resources</h4>
+        <ul class="footer-links" role="list">
+          <li><a href="#section-case-study">Case studies</a></li>
+          <li><a href="#compliance-docs">Certifications</a></li>
+          <li><a href="#">ESG reports</a></li>
+          <li><a href="#">Lab reports</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column" data-od-id="footer-contact">
+        <h4 class="footer-heading">Contact</h4>
+        <p class="footer-contact-line">Plant location to be announced</p>
+        <ul class="footer-links" role="list">
+          <li><a href="tel:+910000000000">+91 XXXXX XXXXXX</a></li>
+          <li><a href="mailto:info@shawagrivolt.in">info@shawagrivolt.in</a></li>
+          <li><a href="#" rel="noopener">LinkedIn</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-bottom-left">
+        <a href="#" class="footer-logo">Shaw AgriVolt</a>
+        <span class="footer-satat" role="img" aria-label="SATAT initiative">
+          <span class="footer-satat-dot" aria-hidden="true"></span>
+          SATAT
+        </span>
+        <span class="footer-copyright">© 2025 Shaw AgriVolt</span>
+      </div>
+      <div class="footer-lang">
+        <a href="#" lang="en" hreflang="en" class="is-active" aria-current="true">EN</a>
+        <span aria-hidden="true">|</span>
+        <a href="#" lang="bn" hreflang="bn">বাংলা</a>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<script>
+/*
+ * NAVIGATION SCROLL BEHAVIOUR
+ * Transparent → solid white on scroll
+ * Uses requestAnimationFrame for performance
+ */
+(function() {
+  var nav = document.getElementById('site-nav');
+  if (!nav) return;
+
+  var ticking = false;
+  var scrollThreshold = 80; // px before nav becomes solid
+
+  function updateNav() {
+    var scrollY = window.pageYOffset || document.documentElement.scrollTop;
+    if (scrollY > scrollThreshold) {
+      nav.classList.add('is-scrolled');
+    } else {
+      nav.classList.remove('is-scrolled');
+    }
+    ticking = false;
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      window.requestAnimationFrame(updateNav);
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  updateNav(); // initial state
+})();
+
+/*
+ * MOBILE DRAWER
+ * Full-screen drawer per design-dna.md section 20.
+ * Opens/closes on hamburger toggle, close button, link click, or Escape.
+ */
+(function() {
+  var hamburger = document.querySelector('.nav-hamburger');
+  var drawer = document.getElementById('mobile-drawer');
+  var closeBtn = document.querySelector('.mobile-drawer-close');
+  var nav = document.getElementById('site-nav');
+  if (!hamburger || !drawer) return;
+
+  function setOpen(open) {
+    hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    drawer.classList.toggle('is-open', open);
+    if (nav) nav.classList.toggle('is-drawer-open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+    if (open) {
+      closeBtn.focus();
+    } else {
+      hamburger.focus();
+    }
+  }
+
+  hamburger.addEventListener('click', function() {
+    var expanded = this.getAttribute('aria-expanded') === 'true' ? true : false;
+    setOpen(!expanded);
+    document.dispatchEvent(new CustomEvent('drawer-toggle', { detail: { open: !expanded } }));
+  });
+
+  closeBtn.addEventListener('click', function() {
+    setOpen(false);
+  });
+
+  drawer.addEventListener('click', function(e) {
+    if (e.target.closest('.mobile-drawer-link')) {
+      setOpen(false);
+    }
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && drawer.classList.contains('is-open')) {
+      setOpen(false);
+    }
+  });
+})();
+
+/*
+ * SCROLL REVEAL (IntersectionObserver)
+ * Covers Section 2 (.shift-animate), Section 3 (.process-animate),
+ * Section 5 (.standards-animate), Section 6 (.product-animate),
+ * Section 7 (.case-animate), Section 8 (.partner-animate) and
+ * Section 9 (.contact-animate). Respects prefers-reduced-motion via CSS.
+ */
+(function() {
+  var els = document.querySelectorAll('.shift-animate, .process-animate, .standards-animate, .product-animate, .case-animate, .partner-animate, .contact-animate');
+  if (!els.length || !window.IntersectionObserver) {
+    // Fallback: show everything
+    for (var i = 0; i < els.length; i++) { els[i].classList.add('is-visible'); }
+    return;
+  }
+  var obs = new IntersectionObserver(function(entries) {
+    for (var j = 0; j < entries.length; j++) {
+      if (entries[j].isIntersecting) {
+        entries[j].target.classList.add('is-visible');
+        obs.unobserve(entries[j].target);
+      }
+    }
+  }, { threshold: 0.1 });
+  for (var k = 0; k < els.length; k++) { obs.observe(els[k]); }
+})();
+
+/*
+ * SECTION 4 — KPI COUNT-UP (IntersectionObserver)
+ * Counts from 0 to the data-target value over 2s on scroll entry.
+ * Then adds .is-settled to reveal the label and context text.
+ */
+(function() {
+  var metrics = document.querySelectorAll('.metric');
+  if (!metrics.length || !window.IntersectionObserver) return;
+
+  var obs = new IntersectionObserver(function(entries) {
+    for (var i = 0; i < entries.length; i++) {
+      if (entries[i].isIntersecting) {
+        var el = entries[i].target;
+        el.classList.add('is-active');
+        countUp(el);
+        obs.unobserve(el);
+      }
+    }
+  }, { threshold: 0.3 });
+
+  function countUp(el) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      // Show final values immediately
+      var nums = el.querySelectorAll('.metric-number');
+      for (var n = 0; n < nums.length; n++) {
+        nums[n].textContent = nums[n].getAttribute('data-target') || nums[n].textContent;
+      }
+      el.classList.add('is-settled');
+      return;
+    }
+
+    var numEl = el.querySelector('.metric-number');
+    if (!numEl) { el.classList.add('is-settled'); return; }
+    var target = parseFloat(numEl.getAttribute('data-target'));
+    if (isNaN(target) || target <= 0) { el.classList.add('is-settled'); return; }
+
+    var formatNum = function(v) {
+      // Indian number formatting
+      if (target >= 1000) {
+        return Math.round(v).toLocaleString('en-IN');
+      }
+      return String(Math.round(v));
+    };
+
+    var duration = 2000;
+    var startTime = null;
+
+    function frame(now) {
+      if (!startTime) startTime = now;
+      var elapsed = now - startTime;
+      var progress = Math.min(elapsed / duration, 1);
+      // Ease-out cubic
+      var eased = 1 - Math.pow(1 - progress, 3);
+      var current = eased * target;
+      numEl.textContent = formatNum(current);
+      if (progress < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        numEl.textContent = formatNum(target);
+        // Small delay before revealing labels
+        setTimeout(function() { el.classList.add('is-settled'); }, 200);
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  for (var m = 0; m < metrics.length; m++) { obs.observe(metrics[m]); }
+})();
+
+/*
+ * SECTION 9 — CONTACT FORM VALIDATION
+ * Client-side checks: required name, valid email, valid phone.
+ * Error messages wired via aria-describedby; feedback in a
+ * polite live region. No network submit (static prototype).
+ */
+(function() {
+  var form = document.querySelector('#contact-form');
+  if (!form) return;
+
+  var fields = {
+    name:    { el: document.getElementById('contact-name'),    validate: function(v) { return v.trim().length > 0; }, message: 'Please enter your name.' },
+    email:   { el: document.getElementById('contact-email'),   validate: function(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }, message: 'Please enter a valid email address.' },
+    phone:   { el: document.getElementById('contact-phone'),   validate: function(v) { return /^\+?[0-9\s\-]{10,15}$/.test(v.trim()); }, message: 'Please enter a valid phone number.' }
+  };
+
+  var feedback = document.getElementById('contact-feedback');
+
+  function setError(key, show) {
+    var f = fields[key];
+    var errEl = document.getElementById(key === 'name' ? 'contact-name-error'
+              : key === 'email' ? 'contact-email-error'
+              : 'contact-phone-error');
+    if (!f || !errEl) return;
+    f.el.setAttribute('aria-invalid', show ? 'true' : 'false');
+    f.el.setAttribute('aria-describedby', show ? errEl.id : '');
+    errEl.textContent = show ? f.message : '';
+    errEl.hidden = !show;
+  }
+
+  function validate() {
+    var firstInvalid = null;
+    for (var key in fields) {
+      var f = fields[key];
+      var ok = f.validate(f.el.value);
+      setError(key, !ok);
+      if (!ok && !firstInvalid) firstInvalid = f.el;
+    }
+    return !firstInvalid;
+  }
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var ok = validate();
+    if (!ok) {
+      feedback.textContent = 'Please correct the highlighted fields and try again.';
+      feedback.className = 'contact-feedback is-visible is-error';
+      if (document.querySelector('.contact-form [aria-invalid="true"]')) {
+        document.querySelector('.contact-form [aria-invalid="true"]').focus();
+      }
+      return;
+    }
+    feedback.textContent = 'Thank you — your inquiry has been noted. We will get back to you shortly.';
+    feedback.className = 'contact-feedback is-visible is-success';
+    form.reset();
+    for (var key in fields) { setError(key, false); }
+  });
+
+  // Clear a field's error as soon as the user fixes it
+  form.addEventListener('input', function() {
+    for (var key in fields) {
+      var f = fields[key];
+      if (f.el.getAttribute('aria-invalid') === 'true' && f.validate(f.el.value)) {
+        setError(key, false);
+      }
+    }
+  });
+})();
+</script>
+
+
+
+</body></html>

@@ -1,0 +1,12 @@
+# Internal Open Design tooling data
+.file-versions/
+.od-skills/
+
+# Temporary files
+remote_check.txt
+lsremote_check.txt
+
+# OS files
+Thumbs.db
+.DS_Store
+

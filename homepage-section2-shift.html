@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shaw AgriVolt — Section 2: The Shift</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;1,400&family=Inter:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --color-bg: oklch(0.99 0 0);
+  --color-surface: oklch(0.97 0.003 260);
+  --color-fg: oklch(0.13 0.015 260);
+  --color-muted: oklch(0.55 0.02 260);
+  --color-border: oklch(0.88 0.008 260);
+  --color-accent: oklch(0.35 0.04 260);
+  --color-green: oklch(0.45 0.12 160);
+
+  --font-display: "Inter Tight", "Neue Haas Grotesk", system-ui, -apple-system, sans-serif;
+  --font-body: "Inter", "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 40px;
+  --space-xl: 64px;
+  --space-2xl: 96px;
+  --space-3xl: 128px;
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-full: 999px;
+
+  --shadow-sm: 0 1px 2px rgba(10, 18, 46, 0.04);
+  --shadow-md: 0 4px 12px rgba(10, 18, 46, 0.06);
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --content-max: 1280px;
+  --edge-padding: 80px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-fg);
+  background: var(--color-bg);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--edge-padding);
+}
+
+/*
+ * SECTION 2 — THE SHIFT
+ * Standalone editorial view.
+ *
+ * Transition from Hero: a 1px border-top in --color-border
+ * at 30% opacity suggests the hero's lower boundary without
+ * introducing a visible divider. The reduced top padding
+ * (48px vs. the standard 64px) tightens the visual join.
+ */
+.section-shift {
+  background: var(--color-bg);
+  padding: 48px 0 var(--space-2xl);
+}
+
+/* Overline — uppercase, muted, above the headline */
+.shift-overline {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  text-align: center;
+  margin-bottom: var(--space-md);
+}
+
+/*
+ * Headline — communicates one primary idea:
+ * Agricultural waste as a feedstock can meet 2.5× India's
+ * total natural gas demand. The number carries the weight.
+ */
+.shift-headline {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 3.5vw, 48px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--color-fg);
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.shift-headline em {
+  font-style: normal;
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+/*
+ * Supporting copy — narrower column than the headline
+ * to aid readability. Three data-driven statements.
+ */
+.shift-stats-wrap {
+  max-width: 560px;
+  margin: var(--space-lg) auto 0;
+}
+
+.shift-stats {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.shift-stat {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--color-fg);
+  text-align: center;
+}
+
+.shift-stat strong {
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+/* Source citation — sits closer to content before chart */
+.shift-source {
+  margin-top: var(--space-md);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--color-muted);
+  text-align: center;
+  line-height: 1.4;
+}
+
+/*
+ * Chart — opportunity gap visualisation
+ * Two horizontal bars: current demand vs. feedstock potential.
+ * Proportions refined: taller bars, wider label column,
+ * tighter grouping, closer to the text above.
+ */
+.shift-chart {
+  margin-top: var(--space-lg);
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.shift-chart-label {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: var(--space-sm);
+  text-align: center;
+}
+
+.shift-chart-bar-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.shift-chart-bar-row {
+  display: grid;
+  grid-template-columns: 100px 1fr 48px;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.shift-chart-bar-label {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-fg);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.shift-chart-bar-track {
+  height: 32px;
+  background: var(--color-border);
+  position: relative;
+  overflow: hidden;
+}
+
+.shift-chart-bar-fill {
+  height: 100%;
+  background: var(--color-accent);
+  transition: width 800ms var(--ease-out);
+}
+
+.shift-chart-bar-value {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-accent);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.shift-chart-annotation {
+  margin-top: var(--space-xs);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--color-muted);
+  text-align: center;
+  line-height: 1.4;
+}
+
+/*
+ * Motion — fade up on scroll into view
+ */
+.shift-animate {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 600ms var(--ease-out),
+    transform 600ms var(--ease-out);
+}
+
+.shift-animate.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.shift-animate--overline { transition-delay: 0ms; }
+.shift-animate--headline { transition-delay: 100ms; }
+.shift-animate--stat-1 { transition-delay: 200ms; }
+.shift-animate--stat-2 { transition-delay: 300ms; }
+.shift-animate--stat-3 { transition-delay: 400ms; }
+.shift-animate--source { transition-delay: 500ms; }
+.shift-animate--chart { transition-delay: 600ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .shift-animate {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/*
+ * RESPONSIVE
+ */
+@media (max-width: 1023px) {
+  :root { --edge-padding: 32px; }
+  .section-shift { padding: 40px 0 var(--space-2xl); }
+  .shift-stat { font-size: 16px; }
+  .shift-chart-bar-row { grid-template-columns: 80px 1fr 40px; gap: 8px; }
+  .shift-chart-bar-label { font-size: 12px; }
+}
+
+@media (max-width: 767px) {
+  :root { --edge-padding: 20px; }
+  .section-shift { padding: 32px 0 var(--space-xl); }
+  .shift-headline { font-size: clamp(26px, 7vw, 32px); }
+  .shift-stat { font-size: 15px; }
+  .shift-stats-wrap { max-width: 100%; }
+  .shift-chart { max-width: 100%; }
+  .shift-chart-bar-row {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+  .shift-chart-bar-label { text-align: left; }
+  .shift-chart-bar-value { text-align: left; font-size: 13px; }
+  .shift-chart-bar-track { height: 28px; }
+}
+</style>
+</head>
+<body>
+
+<main id="main-content">
+
+<!-- SECTION 2 — THE SHIFT -->
+<section class="section-shift" aria-label="The industrial context" data-od-id="section-shift">
+  <div class="container">
+    <div class="section-shift-content">
+
+      <!-- Overline — uppercase, muted -->
+      <p class="shift-overline shift-animate shift-animate--overline">The industrial case</p>
+
+      <!-- Headline — one primary idea: supply exceeds demand 2.5× -->
+      <h2 class="shift-headline shift-animate shift-animate--headline">
+        Agricultural waste can supply <em>2.5×</em> India&rsquo;s annual natural gas demand
+      </h2>
+
+      <!-- Supporting copy — narrower text column -->
+      <div class="shift-stats-wrap">
+        <div class="shift-stats">
+          <p class="shift-stat shift-animate shift-animate--stat-1">
+            Policy mandates: <strong>20% CBG blending</strong> in CNG by 2028&nbsp;&mdash; a guaranteed demand of 8&nbsp;MMT annually.
+          </p>
+          <p class="shift-stat shift-animate shift-animate--stat-2">
+            Diesel replacement economics: Bio-CNG at <strong>&#8377;45&ndash;55/kg</strong> vs. diesel at &#8377;90+/litre&nbsp;&mdash; a 40&ndash;50% fuel cost advantage.
+          </p>
+          <p class="shift-stat shift-animate shift-animate--stat-3">
+            Soil depletion: Indian agricultural soil organic carbon at <strong>0.3&ndash;0.5%</strong>&nbsp;&mdash; organic fertiliser restores it to the target 1.0%.
+          </p>
+        </div>
+
+        <!-- Source citation -->
+        <p class="shift-source shift-animate shift-animate--source">
+          Sources: SATAT scheme (MoPNG), Indian Biogas Association, ICAR soil health data, 2024.
+        </p>
+      </div>
+
+      <!-- Chart — opportunity gap visualisation -->
+      <div class="shift-chart shift-animate shift-animate--chart" role="figure" aria-labelledby="chart-title" aria-describedby="chart-desc">
+        <p class="shift-chart-label" id="chart-title">India&rsquo;s gas demand vs. feedstock opportunity</p>
+        <div class="shift-chart-bar-group" role="list">
+          <div class="shift-chart-bar-row" role="listitem">
+            <span class="shift-chart-bar-label">Current demand</span>
+            <div class="shift-chart-bar-track">
+              <div class="shift-chart-bar-fill" style="width: 40%;" role="presentation"></div>
+            </div>
+            <span class="shift-chart-bar-value">200&nbsp;MMT</span>
+          </div>
+          <div class="shift-chart-bar-row" role="listitem">
+            <span class="shift-chart-bar-label">Feedstock potential</span>
+            <div class="shift-chart-bar-track">
+              <div class="shift-chart-bar-fill" style="width: 100%;" role="presentation"></div>
+            </div>
+            <span class="shift-chart-bar-value">500&nbsp;MMT</span>
+          </div>
+        </div>
+        <p class="shift-chart-annotation" id="chart-desc">
+          Agricultural waste can cover more than twice India&rsquo;s current natural gas consumption
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+(function() {
+  var els = document.querySelectorAll('.shift-animate');
+  if (!els.length || !window.IntersectionObserver) {
+    for (var i = 0; i < els.length; i++) { els[i].classList.add('is-visible'); }
+    return;
+  }
+  var obs = new IntersectionObserver(function(entries) {
+    for (var j = 0; j < entries.length; j++) {
+      if (entries[j].isIntersecting) {
+        entries[j].target.classList.add('is-visible');
+        obs.unobserve(entries[j].target);
+      }
+    }
+  }, { threshold: 0.1 });
+  for (var k = 0; k < els.length; k++) { obs.observe(els[k]); }
+})();
+</script>
+
+</body>
+</html>

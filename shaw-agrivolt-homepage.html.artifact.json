@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "shaw-agrivolt-homepage.html",
+  "entry": "shaw-agrivolt-homepage.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "createdAt": "2026-07-30T11:25:08.161Z",
+  "updatedAt": "2026-08-01T07:30:10.498Z",
+  "metadata": {
+    "inferred": true,
+    "reconciled": true
+  }
+}

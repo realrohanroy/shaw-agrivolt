@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "homepage-section2-shift.html",
+  "entry": "homepage-section2-shift.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "createdAt": "2026-07-30T13:59:35.122Z",
+  "updatedAt": "2026-07-30T13:59:35.122Z",
+  "metadata": {
+    "inferred": true,
+    "reconciled": true
+  }
+}
