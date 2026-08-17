@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@theme {
+  /* Updated exact colors from the new Shaw Agrivolt Logo */
+  --color-brand-navy: #02041D;
+  --color-brand-surface: #0A0C26;
+  --color-brand-surface-light: #151838;
+  --color-brand-blue: #0066FF;
+  --color-brand-green: #44B944;
+  --color-brand-text: #FFFFFF;
+  --color-brand-muted: #A0AABF;
+  --color-brand-border: rgba(255, 255, 255, 0.1);
+
+  --font-display: "Outfit", "Inter Tight", system-ui, -apple-system, sans-serif;
+  --font-body: "Plus Jakarta Sans", "Inter", system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-brand-navy text-brand-text font-body antialiased selection:bg-brand-blue selection:text-white;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight;
+  }
+}
+
+@layer utilities {
+  /* Dark Theme Bento Panel */
+  .bento-panel {
+    @apply bg-brand-surface border border-white/5 rounded-[2rem] overflow-hidden transition-all duration-500 hover:border-white/10 hover:shadow-xl hover:shadow-black/50;
+  }
+
+  /* Light Theme Bento Panel */
+  .bento-panel-light {
+    @apply bg-white border border-gray-100 rounded-[2rem] overflow-hidden transition-all duration-500 hover:border-gray-200 hover:shadow-xl hover:shadow-brand-navy/5;
+  }
+
+  .neon-border-blue {
+    @apply border border-brand-blue/30 shadow-[inset_0_0_20px_rgba(0,102,255,0.1),_0_0_15px_rgba(0,102,255,0.2)];
+  }
+
+  .neon-border-green {
+    @apply border border-brand-green/30 shadow-[inset_0_0_20px_rgba(68,185,68,0.1),_0_0_15px_rgba(68,185,68,0.2)];
+  }
+  
+  .btn-pill-blue {
+    @apply relative overflow-hidden bg-brand-surface border border-brand-blue/40 text-brand-blue font-medium uppercase text-sm px-8 py-3.5 rounded-full transition-all duration-300 hover:bg-brand-blue hover:text-white hover:shadow-[0_0_30px_rgba(0,102,255,0.4)] hover:scale-[1.02] inline-flex items-center gap-2;
+  }
+  
+  .btn-pill-green {
+    @apply relative overflow-hidden bg-brand-surface border border-brand-green/40 text-brand-green font-medium uppercase text-sm px-8 py-3.5 rounded-full transition-all duration-300 hover:bg-brand-green hover:text-white hover:shadow-[0_0_30px_rgba(68,185,68,0.4)] hover:scale-[1.02] inline-flex items-center gap-2;
+  }
+
+  .btn-pill-ghost {
+    @apply bg-transparent hover:bg-white/5 text-white border border-white/20 font-medium uppercase text-sm px-6 py-3 rounded-full transition-all duration-300 inline-flex items-center gap-2;
+  }
+
+  /* Dark text variant for light backgrounds */
+  .btn-pill-ghost-dark {
+    @apply bg-transparent hover:bg-black/5 text-brand-navy border border-black/10 font-medium uppercase text-sm px-6 py-3 rounded-full transition-all duration-300 inline-flex items-center gap-2;
+  }
+
+  .text-glow-blue {
+    text-shadow: 0 0 20px rgba(0, 102, 255, 0.5);
+  }
+  
+  .text-glow-green {
+    text-shadow: 0 0 20px rgba(68, 185, 68, 0.5);
+  }
+}
