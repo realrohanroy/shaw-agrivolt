@@ -436,7 +436,7 @@ export const CircularEconomyStepper = () => {
               {/* Zone 3: Enrichment */}
               <motion.div
                 className="absolute"
-                style={{ top: 180, left: 900, width: 280 }}
+                style={{ top: 200, left: 860, width: 280 }}
                 animate={{
                   opacity: (isIntro || activeStep === 3) ? 1 : 0.3,
                   filter: (isIntro || activeStep === 3) ? 'grayscale(0%) brightness(1)' : 'grayscale(100%) brightness(1.3)',
