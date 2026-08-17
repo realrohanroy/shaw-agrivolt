@@ -62,13 +62,13 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-              className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full sm:w-auto"
+              className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 w-full sm:w-auto"
             >
-              <a href="#" className="btn-pill-blue w-full sm:w-auto justify-center shadow-lg shadow-brand-blue/20">
-                <Zap size={18} /> Procure Bio-CNG
+              <a href="#" className="btn-pill-blue w-auto justify-center shadow-lg shadow-brand-blue/20 whitespace-nowrap">
+                <Zap size={18} className="mr-2" /> Procure Bio-CNG
               </a>
-              <a href="#" className="btn-pill-green w-full sm:w-auto justify-center shadow-lg shadow-brand-green/20">
-                <Leaf size={18} /> Source Fertilizers
+              <a href="#" className="btn-pill-green w-auto justify-center shadow-lg shadow-brand-green/20 whitespace-nowrap">
+                <Leaf size={18} className="mr-2" /> Source Fertilizers
               </a>
             </motion.div>
           </div>
