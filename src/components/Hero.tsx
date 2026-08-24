@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion';
 import { Leaf, Zap } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export const Hero = () => {
+  const { t } = useTranslation();
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden pt-24 pb-12">
       {/* Full Background Image */}
@@ -33,7 +35,7 @@ export const Hero = () => {
             >
               <div className="w-2 h-2 rounded-full bg-brand-green animate-pulse shadow-[0_0_8px_rgba(28,210,86,0.8)]"></div>
               <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white">
-                NEXT-GEN INDUSTRIAL ENERGY
+                {t('hero.tagline')}
               </span>
             </motion.div>
 
@@ -43,10 +45,10 @@ export const Hero = () => {
               transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
               className="text-5xl md:text-7xl lg:text-8xl font-display font-bold leading-[0.95] tracking-tight mb-8"
             >
-              Powering the <br />
-              <span className="text-brand-blue text-glow-blue">Industrial Grid.</span><br />
-              Restoring the <br />
-              <span className="text-brand-green text-glow-green">Soil Health.</span>
+              {t('hero.line1')} <br />
+              <span className="text-brand-blue text-glow-blue">{t('hero.line2')}</span><br />
+              {t('hero.line3')} <br />
+              <span className="text-brand-green text-glow-green">{t('hero.line4')}</span>
             </motion.h1>
 
             <motion.p 
@@ -55,7 +57,7 @@ export const Hero = () => {
               transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
               className="text-lg md:text-2xl text-white/80 max-w-2xl mb-12 font-light leading-relaxed drop-shadow-sm"
             >
-              Shaw AgriVolt Gas Private Limited — High-Purity Bio-CNG Production & Certified Organic Agricultural Inputs from Howrah, West Bengal.
+              {t('hero.description')}
             </motion.p>
 
             <motion.div 
@@ -65,10 +67,10 @@ export const Hero = () => {
               className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 w-full sm:w-auto"
             >
               <a href="#" className="btn-pill-blue w-auto justify-center shadow-lg shadow-brand-blue/20 whitespace-nowrap">
-                <Zap size={18} className="mr-2" /> Procure Bio-CNG
+                <Zap size={18} className="mr-2" /> {t('hero.btnProcure')}
               </a>
               <a href="#" className="btn-pill-green w-auto justify-center shadow-lg shadow-brand-green/20 whitespace-nowrap">
-                <Leaf size={18} className="mr-2" /> Source Fertilizers
+                <Leaf size={18} className="mr-2" /> {t('hero.btnSource')}
               </a>
             </motion.div>
           </div>
@@ -84,20 +86,20 @@ export const Hero = () => {
             <div className="w-full max-w-sm p-8 bg-black/40 backdrop-blur-xl rounded-[2rem] border border-white/10 shadow-2xl">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h3 className="text-white font-bold text-lg">Howrah Facility</h3>
-                  <p className="text-brand-muted text-sm">Real-time status</p>
+                  <h3 className="text-white font-bold text-lg">{t('hero.dashboardTitle')}</h3>
+                  <p className="text-brand-muted text-sm">{t('hero.dashboardStatus')}</p>
                 </div>
                 <div className="flex items-center gap-2 bg-brand-green/10 px-3 py-1.5 rounded-full border border-brand-green/20">
                   <span className="w-2.5 h-2.5 rounded-full bg-brand-green animate-pulse"></span>
-                  <span className="text-brand-green text-xs font-bold tracking-wide">ONLINE</span>
+                  <span className="text-brand-green text-xs font-bold tracking-wide">{t('hero.online')}</span>
                 </div>
               </div>
               
               <div className="space-y-4">
                 <div>
                   <div className="flex justify-between mb-2 text-sm text-white/90 font-medium">
-                    <span>Bio-CNG Output</span>
-                    <span className="text-brand-blue">75% Load</span>
+                    <span>{t('hero.bioCngOutput')}</span>
+                    <span className="text-brand-blue">{t('hero.load')}</span>
                   </div>
                   <div className="w-full bg-white/10 h-2 rounded-full overflow-hidden">
                     <motion.div 
@@ -113,8 +115,8 @@ export const Hero = () => {
 
                 <div>
                   <div className="flex justify-between mb-2 text-sm text-white/90 font-medium">
-                    <span>Digester Temp</span>
-                    <span className="text-brand-green">55°C</span>
+                    <span>{t('hero.organicFertilizer')}</span>
+                    <span className="text-brand-green">{t('hero.capacity')}</span>
                   </div>
                   <div className="w-full bg-white/10 h-2 rounded-full overflow-hidden">
                     <motion.div 

@@ -1,0 +1,31 @@
+{
+  "splash": {
+    "selectLanguage": "Select Language",
+    "english": "English",
+    "bengali": "বাংলা"
+  },
+  "navbar": {
+    "company": "SHAW AGRIVOLT GAS",
+    "subtitle": "PRIVATE LIMITED"
+  },
+  "hero": {
+    "tagline": "NEXT-GEN INDUSTRIAL ENERGY",
+    "line1": "Powering the",
+    "line2": "Industrial Grid.",
+    "line3": "Restoring the",
+    "line4": "Soil Health.",
+    "description": "Shaw AgriVolt Gas Private Limited — High-Purity Bio-CNG Production & Certified Organic Agricultural Inputs from Howrah, West Bengal.",
+    "btnProcure": "Procure Bio-CNG",
+    "btnSource": "Source Fertilizers",
+    "dashboardTitle": "Howrah Facility",
+    "dashboardStatus": "Real-time status",
+    "online": "ONLINE",
+    "bioCngOutput": "Bio-CNG Output",
+    "load": "75% Load",
+    "organicFertilizer": "Organic Fertilizer",
+    "capacity": "20t / day"
+  },
+  "footer": {
+    "copyright": "© 2025 Shaw AgriVolt"
+  }
+}

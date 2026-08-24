@@ -69,3 +69,8 @@
     text-shadow: 0 0 20px rgba(68, 185, 68, 0.5);
   }
 }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

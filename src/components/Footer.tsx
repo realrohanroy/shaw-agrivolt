@@ -1,6 +1,8 @@
 import { Logo } from './Logo';
+import { useTranslation } from 'react-i18next';
 
 export const Footer = () => {
+  const { t, i18n } = useTranslation();
   return (
     <footer className="bg-brand-navy border-t border-white/5 pt-20 pb-12">
       <div className="container mx-auto px-6 md:px-12 max-w-7xl">
@@ -53,7 +55,7 @@ export const Footer = () => {
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-6 flex-wrap justify-center">
             <Logo className="scale-75 origin-left" />
-            <span className="text-brand-muted text-xs">© 2025 Shaw AgriVolt</span>
+            <span className="text-brand-muted text-xs">{t('footer.copyright')}</span>
             <div className="px-3 py-1 rounded-full border border-white/20 text-[10px] font-bold text-white/80 uppercase tracking-widest flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-brand-green"></span>
               SATAT
@@ -61,9 +63,19 @@ export const Footer = () => {
           </div>
 
           <div className="flex items-center gap-4 text-xs font-bold tracking-widest">
-            <a href="#" className="text-white">EN</a>
+            <button 
+              onClick={() => i18n.changeLanguage('en')}
+              className={`transition-colors ${i18n.language === 'en' ? 'text-white' : 'text-brand-muted hover:text-white'}`}
+            >
+              EN
+            </button>
             <span className="text-white/20">|</span>
-            <a href="#" className="text-brand-muted hover:text-white transition-colors">বাংলা</a>
+            <button 
+              onClick={() => i18n.changeLanguage('bn')}
+              className={`transition-colors ${i18n.language === 'bn' ? 'text-white' : 'text-brand-muted hover:text-white'}`}
+            >
+              বাংলা
+            </button>
           </div>
         </div>
 

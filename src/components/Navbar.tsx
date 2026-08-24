@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { Logo } from './Logo';
 
 export const Navbar = () => {
+  const { t } = useTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -36,10 +38,10 @@ export const Navbar = () => {
 
         <div className="hidden lg:flex items-center gap-4">
           <a href="#" className="btn-pill-blue">
-            Procure Bio-CNG
+            {t('hero.btnProcure')}
           </a>
           <a href="#" className="btn-pill-ghost border-brand-green/30 hover:border-brand-green/80 hover:text-brand-green">
-            Source Fertilizers
+            {t('hero.btnSource')}
           </a>
         </div>
 
@@ -70,10 +72,10 @@ export const Navbar = () => {
               </nav>
               <div className="flex flex-col gap-3 pt-4 border-t border-white/10">
                 <a href="#" className="btn-pill-blue justify-center">
-                  Procure Bio-CNG
+                  {t('hero.btnProcure')}
                 </a>
                 <a href="#" className="btn-pill-ghost justify-center border-brand-green/30 text-brand-green">
-                  Source Fertilizers
+                  {t('hero.btnSource')}
                 </a>
               </div>
             </div>
