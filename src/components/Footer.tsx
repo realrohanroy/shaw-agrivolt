@@ -78,6 +78,13 @@ export const Footer = () => {
             </button>
           </div>
         </div>
+        
+        {/* Agency Credit */}
+        <div className="pt-6 mt-6 border-t border-white/5 flex justify-center text-white/40 text-[10px] uppercase tracking-widest">
+          <span>
+            Crafted with ♡ by <a href="https://smeexperts.in" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white transition-colors ml-1">SME Experts</a>
+          </span>
+        </div>
 
       </div>
     </footer>
