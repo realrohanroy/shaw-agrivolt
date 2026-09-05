@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Factory, Zap, Sprout, Leaf } from 'lucide-react';
+import { useTranslation, Trans } from 'react-i18next';
 
 export const ImpactMetrics = () => {
+  const { t } = useTranslation();
   return (
     <section className="py-24 bg-[#0a0e1a] relative border-y border-white/5">
       {/* Background Grid Pattern */}
@@ -23,14 +25,16 @@ export const ImpactMetrics = () => {
                 <Factory className="text-brand-blue" size={24} />
               </div>
               <p className="text-brand-blue text-sm font-bold tracking-widest uppercase mb-3">
-                ESG PERFORMANCE
+                {t('impact.tagline')}
               </p>
               <h2 className="text-4xl lg:text-5xl font-display font-bold text-white mb-6 leading-tight">
-                Measurable <br /> Environmental <br /> Impact
+                <Trans i18nKey="impact.title">
+                  Measurable <br /> Environmental <br /> Impact
+                </Trans>
               </h2>
             </div>
             <p className="text-brand-muted text-lg leading-relaxed">
-              Real-time sustainability metrics audited from our Howrah operations, setting a new benchmark for industrial eco-compliance.
+              {t('impact.description')}
             </p>
           </motion.div>
 
@@ -49,8 +53,8 @@ export const ImpactMetrics = () => {
                   38.5<span className="text-4xl md:text-6xl text-brand-blue">k</span>
                 </span>
               </div>
-              <h3 className="text-xl text-white font-medium mb-2">Liters of Fossil Fuel Replaced</h3>
-              <p className="text-brand-muted max-w-sm">Offsetting industrial reliance on conventional diesel and coal with high-purity Bio-CNG.</p>
+              <h3 className="text-xl text-white font-medium mb-2">{t('impact.fossilReplacedTitle')}</h3>
+              <p className="text-brand-muted max-w-sm">{t('impact.fossilReplacedDesc')}</p>
             </div>
             <div className="w-16 h-16 rounded-full bg-brand-blue/10 border border-brand-blue/30 flex items-center justify-center text-brand-blue group-hover:scale-110 transition-transform duration-500 relative z-10 shrink-0">
               <Zap size={28} />
@@ -74,7 +78,7 @@ export const ImpactMetrics = () => {
             </div>
             <div className="relative z-10">
               <span className="block text-5xl font-display font-bold text-white mb-2">4,200<span className="text-brand-green text-2xl ml-1">MT</span></span>
-              <p className="text-brand-muted">Organic Waste Diverted from landfills</p>
+              <p className="text-brand-muted">{t('impact.wasteDivertedTitle')}</p>
             </div>
           </motion.div>
 
@@ -95,7 +99,7 @@ export const ImpactMetrics = () => {
             </div>
             <div className="relative z-10">
               <span className="block text-5xl font-display font-bold text-white mb-2">1,750<span className="text-brand-green text-2xl ml-1">Ha</span></span>
-              <p className="text-brand-muted">Farmland Rejuvenated with bio-fertilizers</p>
+              <p className="text-brand-muted">{t('impact.farmlandTitle')}</p>
             </div>
           </motion.div>
 

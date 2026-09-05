@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 /* ─── Data ─────────────────────────────────────────────────────────────────── */
 
@@ -13,45 +14,7 @@ type ProcessStep = {
   ctaLabel: string;
 };
 
-const steps: ProcessStep[] = [
-  {
-    id: "0",
-    tabNumber: "",
-    tabLabel: "INTRO",
-    stepLabel: "INTRO",
-    heading: "How We Harness the Power of Organic Waste",
-    description: "Our zero-waste industrial process converts organic feedstock into clean fuel and certified agricultural inputs — simultaneously, creating a truly circular economy.",
-    ctaLabel: "Start",
-  },
-  {
-    id: "1",
-    tabNumber: "1",
-    tabLabel: "Feedstock Sourcing",
-    stepLabel: "STEP 1",
-    heading: "Feedstock Sourcing",
-    description: "Agricultural residue, municipal organic waste, and industrial bio-mass aggregated from West Bengal's supply network.",
-    ctaLabel: "Next",
-  },
-  {
-    id: "2",
-    tabNumber: "2",
-    tabLabel: "Anaerobic Digestion",
-    stepLabel: "STEP 2",
-    heading: "Thermophilic Anaerobic Digestion",
-    description: "Multi-stage high-temperature digestion at our Howrah facility breaks down organic matter, generating raw biogas and nutrient-rich digestate.",
-    ctaLabel: "Next",
-  },
-  {
-    id: "3",
-    tabNumber: "3",
-    tabLabel: "Gas Enrichment",
-    stepLabel: "STEP 3",
-    heading: "VSA Gas Enrichment",
-    description: "Vacuum Swing Adsorption purification elevates methane concentration to >95%, meeting IS 16087:2016 national standards.",
-    ctaLabel: "Start Over",
-  },
-];
-
+// Removed static steps to move into component.
 /* Camera view properties for each step: Intro shows all compactly, Steps zoom in */
 const CAMERA_VIEWS = [
   { x: -50, y: 30, scale: 0.75 },     // 0: Intro - Zoomed out to show all compactly (bigger now)
@@ -194,9 +157,49 @@ const AnimatedArrow = ({
 /* ─── Component ────────────────────────────────────────────────────────────── */
 
 export const CircularEconomyStepper = () => {
+  const { t } = useTranslation();
   const [activeStep, setActiveStep] = useState(0);
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
   const prefersReducedMotion = useReducedMotion();
+
+  const steps: ProcessStep[] = [
+    {
+      id: "0",
+      tabNumber: "",
+      tabLabel: t('process.tabIntro'),
+      stepLabel: t('process.stepIntro'),
+      heading: t('process.headIntro'),
+      description: t('process.descIntro'),
+      ctaLabel: t('process.btnStart'),
+    },
+    {
+      id: "1",
+      tabNumber: "1",
+      tabLabel: t('process.tab1'),
+      stepLabel: t('process.step1'),
+      heading: t('process.head1'),
+      description: t('process.desc1'),
+      ctaLabel: t('process.btnNext'),
+    },
+    {
+      id: "2",
+      tabNumber: "2",
+      tabLabel: t('process.tab2'),
+      stepLabel: t('process.step2'),
+      heading: t('process.head2'),
+      description: t('process.desc2'),
+      ctaLabel: t('process.btnNext'),
+    },
+    {
+      id: "3",
+      tabNumber: "3",
+      tabLabel: t('process.tab3'),
+      stepLabel: t('process.step3'),
+      heading: t('process.head3'),
+      description: t('process.desc3'),
+      ctaLabel: t('process.btnStartOver'),
+    },
+  ];
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -220,7 +223,7 @@ export const CircularEconomyStepper = () => {
 
         {/* HUGE TITLE */}
         <h2 className="text-5xl md:text-7xl font-display font-black text-[#1A1A1A] mb-12 uppercase italic tracking-tighter">
-          OUR PROCESS
+          {t('process.title')}
         </h2>
 
         {/* TOP TAB BAR */}

@@ -17,7 +17,7 @@
 
 @layer base {
   body {
-    @apply bg-brand-navy text-brand-text font-body antialiased selection:bg-brand-blue selection:text-white;
+    @apply bg-brand-navy text-brand-text font-body antialiased selection:bg-brand-blue selection:text-white overflow-x-hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {

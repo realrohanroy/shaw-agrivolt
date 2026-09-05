@@ -1,16 +1,18 @@
 import { motion } from 'framer-motion';
 import { Flame, Sprout, ArrowRight } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export const Products = () => {
+  const { t } = useTranslation();
   return (
     <section className="py-24 bg-[#F8F9FC] relative">
       <div className="container mx-auto px-6 md:px-12 max-w-7xl">
         <div className="text-center mb-16">
           <p className="text-brand-blue text-sm font-bold tracking-widest uppercase mb-3">
-            Products
+            {t('products.tagline')}
           </p>
           <h2 className="text-4xl md:text-5xl font-display font-bold text-brand-navy mb-6">
-            Industrial-grade outputs, certified to spec
+            {t('products.title')}
           </h2>
         </div>
 
@@ -30,29 +32,29 @@ export const Products = () => {
               <Flame size={32} />
             </div>
             
-            <h3 className="text-3xl font-display font-bold text-brand-navy mb-8">Bio-CNG</h3>
+            <h3 className="text-3xl font-display font-bold text-brand-navy mb-8">{t('products.bioCng')}</h3>
             
             <div className="flex flex-col gap-6 flex-grow mb-12">
               <div className="flex justify-between items-center border-b border-gray-100 pb-4">
-                <span className="text-gray-500 font-medium">Methane purity</span>
+                <span className="text-gray-500 font-medium">{t('products.methanePurity')}</span>
                 <span className="text-brand-navy font-bold">97%+</span>
               </div>
               <div className="flex justify-between items-center border-b border-gray-100 pb-4">
-                <span className="text-gray-500 font-medium">Calorific value</span>
-                <span className="text-brand-navy font-bold text-right">Pipeline-grade specification</span>
+                <span className="text-gray-500 font-medium">{t('products.calorificValue')}</span>
+                <span className="text-brand-navy font-bold text-right">{t('products.pipelineGrade')}</span>
               </div>
               <div className="flex justify-between items-center border-b border-gray-100 pb-4">
-                <span className="text-gray-500 font-medium">Delivery format</span>
-                <span className="text-brand-navy font-bold">Cascade & pipeline</span>
+                <span className="text-gray-500 font-medium">{t('products.deliveryFormat')}</span>
+                <span className="text-brand-navy font-bold">{t('products.cascadePipeline')}</span>
               </div>
               <div className="flex justify-between items-center pb-4">
-                <span className="text-gray-500 font-medium">Application</span>
-                <span className="text-brand-navy font-bold text-right">Industrial & transport fuel</span>
+                <span className="text-gray-500 font-medium">{t('products.application')}</span>
+                <span className="text-brand-navy font-bold text-right">{t('products.industrialTransport')}</span>
               </div>
             </div>
             
             <a href="#" className="inline-flex items-center gap-2 font-bold text-brand-blue hover:gap-4 transition-all uppercase tracking-wide text-sm">
-              View Bio-CNG specs <ArrowRight size={16} />
+              {t('products.viewBioCngSpecs')} <ArrowRight size={16} />
             </a>
           </motion.article>
 
@@ -70,29 +72,29 @@ export const Products = () => {
               <Sprout size={32} />
             </div>
             
-            <h3 className="text-3xl font-display font-bold text-brand-navy mb-8">Organic Fertiliser</h3>
+            <h3 className="text-3xl font-display font-bold text-brand-navy mb-8">{t('products.organicFertiliser')}</h3>
             
             <div className="flex flex-col gap-6 flex-grow mb-12">
               <div className="flex justify-between items-center border-b border-gray-100 pb-4">
-                <span className="text-gray-500 font-medium">NPK ratio</span>
-                <span className="text-brand-navy font-bold text-right">Balanced macro-nutrient profile</span>
+                <span className="text-gray-500 font-medium">{t('products.npkRatio')}</span>
+                <span className="text-brand-navy font-bold text-right">{t('products.balancedMacro')}</span>
               </div>
               <div className="flex justify-between items-center border-b border-gray-100 pb-4">
-                <span className="text-gray-500 font-medium">Form</span>
-                <span className="text-brand-navy font-bold">Granular / pelleted</span>
+                <span className="text-gray-500 font-medium">{t('products.form')}</span>
+                <span className="text-brand-navy font-bold">{t('products.granularPelleted')}</span>
               </div>
               <div className="flex justify-between items-center border-b border-gray-100 pb-4">
-                <span className="text-gray-500 font-medium">Packaging</span>
-                <span className="text-brand-navy font-bold">Bag & bulk</span>
+                <span className="text-gray-500 font-medium">{t('products.packaging')}</span>
+                <span className="text-brand-navy font-bold">{t('products.bagBulk')}</span>
               </div>
               <div className="flex justify-between items-center pb-4">
-                <span className="text-gray-500 font-medium">Certification</span>
-                <span className="text-brand-navy font-bold">FCO compliant</span>
+                <span className="text-gray-500 font-medium">{t('products.certification')}</span>
+                <span className="text-brand-navy font-bold">{t('products.fcoCompliant')}</span>
               </div>
             </div>
             
             <a href="#" className="inline-flex items-center gap-2 font-bold text-brand-green hover:gap-4 transition-all uppercase tracking-wide text-sm">
-              View fertiliser specs <ArrowRight size={16} />
+              {t('products.viewFertiliserSpecs')} <ArrowRight size={16} />
             </a>
           </motion.article>
 
@@ -100,7 +102,7 @@ export const Products = () => {
         
         <div className="mt-16 text-center">
           <a href="#contact" className="btn-pill-ghost-dark">
-            Request a quote <ArrowRight size={16} />
+            {t('products.requestQuote')} <ArrowRight size={16} />
           </a>
         </div>
 

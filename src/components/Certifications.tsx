@@ -1,34 +1,36 @@
 import { motion } from 'framer-motion';
 import { ShieldCheck, Award, FileCheck, CheckCircle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export const Certifications = () => {
+  const { t } = useTranslation();
   const certs = [
     {
       id: 1,
-      title: "SATAT Initiative",
-      desc: "Aligned with the Govt. of India's Sustainable Alternative Towards Affordable Transportation scheme.",
+      title: t('certifications.satat'),
+      desc: t('certifications.satatDesc'),
       icon: <ShieldCheck size={28} className="text-brand-green" />
     },
     {
       id: 2,
-      title: "ISO 9001:2015",
-      desc: "Certified quality management across plant operations and process control.",
+      title: t('certifications.iso9001'),
+      desc: t('certifications.iso9001Desc'),
       icon: <Award size={28} className="text-brand-blue" />,
       pdfLink: "/assets/SHAW AGRIVOLT GAS PRIVATE LIMITED-QMS (2) (1).pdf",
       image: "/assets/cert-qms.jpg"
     },
     {
       id: 3,
-      title: "ISO 14001:2015",
-      desc: "Certified environmental management for sustainable, compliant operations.",
+      title: t('certifications.iso14001'),
+      desc: t('certifications.iso14001Desc'),
       icon: <CheckCircle size={28} className="text-brand-green" />,
       pdfLink: "/assets/SHAW AGRIVOLT GAS PRIVATE LIMITED-EMS (2).pdf",
       image: "/assets/cert-ems.jpg"
     },
     {
       id: 4,
-      title: "FCO Compliance",
-      desc: "Fertiliser (Control) Order compliance for certified organic fertiliser output.",
+      title: t('certifications.fco'),
+      desc: t('certifications.fcoDesc'),
       icon: <FileCheck size={28} className="text-brand-blue" />
     }
   ];
@@ -38,10 +40,10 @@ export const Certifications = () => {
       <div className="container mx-auto px-6 md:px-12 max-w-7xl">
         <div className="text-center mb-16">
           <p className="text-brand-green text-sm font-bold tracking-widest uppercase mb-3">
-            Certifications & Compliance
+            {t('certifications.tagline')}
           </p>
           <h2 className="text-4xl md:text-5xl font-display font-bold text-brand-navy max-w-3xl mx-auto leading-tight">
-            Built and operated to the standards our buyers and regulators expect.
+            {t('certifications.title')}
           </h2>
         </div>
 
@@ -76,13 +78,13 @@ export const Certifications = () => {
                     />
                     <div className="absolute inset-0 bg-brand-navy/0 group-hover:bg-brand-navy/10 transition-colors duration-300 flex items-center justify-center">
                       <span className="opacity-0 group-hover:opacity-100 bg-white/95 text-brand-navy text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 shadow-sm">
-                        View PDF
+                        {t('certifications.viewPdf')}
                       </span>
                     </div>
                   </div>
                 </a>
               ) : (
-                <p className="text-xs text-gray-400 font-medium tracking-wide uppercase mt-auto">Reg. no. — available on request</p>
+                <p className="text-xs text-gray-400 font-medium tracking-wide uppercase mt-auto">{t('certifications.regNo')}</p>
               )}
             </motion.div>
           ))}
